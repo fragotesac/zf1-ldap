@@ -38,6 +38,11 @@
  * @subpackage Schema
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @property mixed $_parents
+ * @property mixed $desc
+ * @property mixed $name
+ * @property mixed $oid
+ * @property mixed $syntax
  */
 class Zend_Ldap_Node_Schema_AttributeType_OpenLdap extends Zend_Ldap_Node_Schema_Item
     implements Zend_Ldap_Node_Schema_AttributeType_Interface

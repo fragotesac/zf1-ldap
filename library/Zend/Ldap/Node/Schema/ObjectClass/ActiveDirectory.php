@@ -38,6 +38,7 @@
  * @subpackage Schema
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @property array $ldapdisplayname
  */
 class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_Schema_Item
     implements Zend_Ldap_Node_Schema_ObjectClass_Interface

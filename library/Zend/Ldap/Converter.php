@@ -104,10 +104,10 @@ class Zend_Ldap_Converter
         try {
             switch ($type) {
                 case self::BOOLEAN:
-                    return self::toldapBoolean($value);
+                    return self::toLdapBoolean($value);
                     break;
                 case self::GENERALIZED_TIME:
-                    return self::toLdapDatetime($value);
+                    return self::toLdapDateTime($value);
                     break;
                 default:
                     if (is_string($value)) {
@@ -115,12 +115,12 @@ class Zend_Ldap_Converter
                     } else if (is_int($value) || is_float($value)) {
                         return (string)$value;
                     } else if (is_bool($value)) {
-                        return self::toldapBoolean($value);
+                        return self::toLdapBoolean($value);
                     } else if (is_object($value)) {
                         if ($value instanceof DateTime) {
-                            return self::toLdapDatetime($value);
+                            return self::toLdapDateTime($value);
                         } else if ($value instanceof Zend_Date) {
-                            return self::toLdapDatetime($value);
+                            return self::toLdapDateTime($value);
                         } else {
                             return self::toLdapSerialize($value);
                         }
@@ -145,7 +145,7 @@ class Zend_Ldap_Converter
      * DateTime Object, a string that is parseable by strtotime() or a Zend_Date
      * Object.
      *
-     * @param    integer|string|DateTimt|Zend_Date        $date    The date-entity
+     * @param    integer|string|DateTime|Zend_Date        $date    The date-entity
      * @param    boolean                                    $asUtc    Whether to return the LDAP-compatible date-string
      *                                                          as UTC or as local value
      * @return    string
@@ -225,7 +225,7 @@ class Zend_Ldap_Converter
     {
         switch ($type) {
             case self::BOOLEAN:
-                return self::fromldapBoolean($value);
+                return self::fromLdapBoolean($value);
                 break;
             case self::GENERALIZED_TIME:
                 return self::fromLdapDateTime($value);
