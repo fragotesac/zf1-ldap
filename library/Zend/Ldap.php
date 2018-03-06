@@ -54,7 +54,7 @@ class Zend_Ldap
     /**
      * The raw LDAP extension resource.
      *
-     * @var resource
+     * @var resource|null
      */
     protected $_resource = null;
 
@@ -70,14 +70,14 @@ class Zend_Ldap
     /**
      * Caches the RootDSE
      *
-     * @var Zend_Ldap_Node
+     * @var Zend_Ldap_Node_RootDse
      */
     protected $_rootDse = null;
 
     /**
      * Caches the schema
      *
-     * @var Zend_Ldap_Node
+     * @var Zend_Ldap_Node_Schema
      */
     protected $_schema = null;
 
@@ -227,7 +227,7 @@ class Zend_Ldap
      * NULL if there has been an anonymous bind
      * username of the currently bound user
      *
-     * @return false|null|string
+     * @return bool|null|string
      */
     public function getBoundUser()
     {
@@ -1143,7 +1143,7 @@ class Zend_Ldap
      * @param  string|Zend_Ldap_Dn $dn
      * @param  array               $attributes
      * @param  boolean             $throwOnNotFound
-     * @return array
+     * @return array|null
      * @throws Zend_Ldap_Exception
      */
     public function getEntry($dn, array $attributes = array(), $throwOnNotFound = false)

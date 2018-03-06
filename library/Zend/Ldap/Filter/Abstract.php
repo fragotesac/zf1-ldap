@@ -108,7 +108,7 @@ abstract class Zend_Ldap_Filter_Abstract
      * @author Benedikt Hallinger <beni@php.net>
      *
      * @param  string|array $values Array of values to escape
-     * @return array Array $values, but escaped
+     * @return string|array Array $values, but escaped
      */
     public static function escapeValue($values = array())
     {

@@ -43,7 +43,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     /**
      * Holds the node's new DN if node is renamed.
      *
-     * @var Zend_Ldap_Dn
+     * @var Zend_Ldap_Dn|null
      */
     protected $_newDn;
     /**
@@ -67,14 +67,14 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
     /**
      * Holds the connection to the LDAP server if in connected mode.
      *
-     * @var Zend_Ldap
+     * @var Zend_Ldap|null
      */
     protected $_ldap;
 
     /**
      * Holds an array of the current node's children.
      *
-     * @var array
+     * @var array|null
      */
     protected $_children;
 
@@ -121,7 +121,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      *
      * Enforces a detached node.
      *
-     * @return null
+     * @return void
      */
     public function __wakeup()
     {
@@ -839,7 +839,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      *
      * @param  string $name
      * @param  mixed  $value
-     * @return null
+     * @return void
      * @throws Zend_Ldap_Exception
      */
     public function __set($name, $value)
@@ -855,7 +855,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      * This is an offline method.
      *
      * @param  string $name
-     * @return null
+     * @return void
      * @throws Zend_Ldap_Exception
      */
     public function __unset($name)
@@ -871,7 +871,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      *
      * @param  string $name
      * @param  mixed  $value
-     * @return null
+     * @return void
      * @throws Zend_Ldap_Exception
      */
     public function offsetSet($name, $value)
@@ -888,7 +888,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      * This is an offline method.
      *
      * @param  string $name
-     * @return null
+     * @return void
      * @throws Zend_Ldap_Exception
      */
     public function offsetUnset($name)
@@ -1067,7 +1067,7 @@ class Zend_Ldap_Node extends Zend_Ldap_Node_Abstract implements Iterator, Recurs
      * Return the current attribute.
      * Implements Iterator
      *
-     * @return array
+     * @return $this
      */
     public function current()
     {
