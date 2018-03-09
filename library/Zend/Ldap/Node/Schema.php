@@ -21,11 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Node_Abstract
- */
-// require_once 'Zend/Ldap/Node/Abstract.php';
-
-/**
  * Zend_Ldap_Node_Schema provides a simple data-container for the Schema node.
  *
  * @category   Zend
@@ -54,16 +49,8 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
         $data = $ldap->getEntry($dn, array('*', '+'), true);
         switch ($ldap->getRootDse()->getServerType()) {
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
-                /**
-                 * @see Zend_Ldap_Node_Schema_ActiveDirectory
-                 */
-                // require_once 'Zend/Ldap/Node/Schema/ActiveDirectory.php';
                 return new Zend_Ldap_Node_Schema_ActiveDirectory($dn, $data, $ldap);
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_OPENLDAP:
-                /**
-                 * @see Zend_Ldap_Node_RootDse_ActiveDirectory
-                 */
-                // require_once 'Zend/Ldap/Node/Schema/OpenLdap.php';
                 return new Zend_Ldap_Node_Schema_OpenLdap($dn, $data, $ldap);
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_EDIRECTORY:
             default:

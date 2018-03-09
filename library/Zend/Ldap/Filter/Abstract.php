@@ -59,7 +59,6 @@ abstract class Zend_Ldap_Filter_Abstract
         /**
          * Zend_Ldap_Filter_Not
          */
-        // require_once 'Zend/Ldap/Filter/Not.php';
         return new Zend_Ldap_Filter_Not($this);
     }
 
@@ -74,7 +73,6 @@ abstract class Zend_Ldap_Filter_Abstract
         /**
          * Zend_Ldap_Filter_And
          */
-        // require_once 'Zend/Ldap/Filter/And.php';
         $fa = func_get_args();
         $args = array_merge(array($this), $fa);
         return new Zend_Ldap_Filter_And($args);
@@ -91,7 +89,6 @@ abstract class Zend_Ldap_Filter_Abstract
         /**
          * Zend_Ldap_Filter_Or
          */
-        // require_once 'Zend/Ldap/Filter/Or.php';
         $fa = func_get_args();
         $args = array_merge(array($this), $fa);
         return new Zend_Ldap_Filter_Or($args);
@@ -112,10 +109,6 @@ abstract class Zend_Ldap_Filter_Abstract
      */
     public static function escapeValue($values = array())
     {
-        /**
-         * @see Zend_Ldap_Converter
-         */
-        // require_once 'Zend/Ldap/Converter.php';
 
         if (!is_array($values)) $values = array($values);
         foreach ($values as $key => $val) {
@@ -142,10 +135,6 @@ abstract class Zend_Ldap_Filter_Abstract
      */
     public static function unescapeValue($values = array())
     {
-        /**
-         * @see Zend_Ldap_Converter
-         */
-        // require_once 'Zend/Ldap/Converter.php';
 
         if (!is_array($values)) $values = array($values);
         foreach ($values as $key => $value) {

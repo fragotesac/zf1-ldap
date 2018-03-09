@@ -21,15 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Filter_Abstract
- */
-// require_once 'Zend/Ldap/Filter/Abstract.php';
-/**
- * @see Zend_Ldap_Filter_String
- */
-// require_once 'Zend/Ldap/Filter/String.php';
-
-/**
  * Zend_Ldap_Filter_Logical provides a base implementation for a grouping filter.
  *
  * @category   Zend
@@ -68,10 +59,6 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
         foreach ($subfilters as $key => $s) {
             if (is_string($s)) $subfilters[$key] = new Zend_Ldap_Filter_String($s);
             else if (!($s instanceof Zend_Ldap_Filter_Abstract)) {
-                /**
-                 * @see Zend_Ldap_Filter_Exception
-                 */
-                // require_once 'Zend/Ldap/Filter/Exception.php';
                 throw new Zend_Ldap_Filter_Exception('Only strings or Zend_Ldap_Filter_Abstract allowed.');
             }
         }

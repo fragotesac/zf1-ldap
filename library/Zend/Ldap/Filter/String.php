@@ -21,11 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Filter_Abstract
- */
-// require_once 'Zend/Ldap/Filter/Abstract.php';
-
-/**
  * Zend_Ldap_Filter_String provides a simple custom string filter.
  *
  * @category   Zend

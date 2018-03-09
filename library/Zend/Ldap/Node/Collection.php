@@ -21,12 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Collection
- */
-// require_once 'Zend/Ldap/Collection.php';
-
-
-/**
  * Zend_Ldap_Node_Collection provides a collecion of nodes.
  *
  * @category   Zend
@@ -45,10 +39,6 @@ class Zend_Ldap_Node_Collection extends Zend_Ldap_Collection
      */
     protected function _createEntry(array $data)
     {
-        /**
-         * @see Zend_Ldap_Node
-         */
-        // require_once 'Zend/Ldap/Node.php';
         $node = Zend_Ldap_Node::fromArray($data, true);
         $node->attachLdap($this->_iterator->getLdap());
         return $node;

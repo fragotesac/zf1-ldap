@@ -21,11 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Node
- */
-// require_once 'Zend/Ldap/Node.php';
-
-/**
  * Zend_Ldap_Node_ChildrenIterator provides an iterator to a collection of children nodes.
  *
  * @category   Zend

@@ -21,11 +21,6 @@
  */
 
 /**
- * @see Zend_Ldap_Node_RootDse
- */
-// require_once 'Zend/Ldap/Node/RootDse.php';
-
-/**
  * Zend_Ldap_Node_RootDse provides a simple data-container for the RootDSE node of
  * an Active Directory server.
  *
@@ -238,10 +233,7 @@ class Zend_Ldap_Node_RootDse_ActiveDirectory extends Zend_Ldap_Node_RootDse
     public function getSchemaDn()
     {
         $schemaDn = $this->getSchemaNamingContext();
-        /**
-         * @see Zend_Ldap_Dn
-         */
-        // require_once 'Zend/Ldap/Dn.php';
+
         return Zend_Ldap_Dn::fromString($schemaDn);
     }
 }
