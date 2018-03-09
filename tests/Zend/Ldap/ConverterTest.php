@@ -65,7 +65,7 @@ class Zend_Ldap_ConverterTest extends PHPUnit\Framework\TestCase
      */
     public function testToLdapDateTime($convert,$expect)
     {
-        $result = Zend_Ldap_Converter::toLdapDatetime($convert['date'], $convert['utc']);
+        $result = Zend_Ldap_Converter::toLdapDateTime($convert['date'], $convert['utc']);
         $this->assertEquals( $expect,$result);
     }
 
@@ -89,7 +89,7 @@ class Zend_Ldap_ConverterTest extends PHPUnit\Framework\TestCase
      */
     public function testToLdapBoolean($expect, $convert)
     {
-        $this->assertEquals($expect, Zend_Ldap_Converter::toldapBoolean($convert));
+        $this->assertEquals($expect, Zend_Ldap_Converter::toLdapBoolean($convert));
     }
 
     public function toLdapBooleanProvider(){
@@ -203,7 +203,7 @@ class Zend_Ldap_ConverterTest extends PHPUnit\Framework\TestCase
         if ( true === $utc ) {
             $expected -> setTimezone(new DateTimeZone('UTC'));
         }
-        $this->assertEquals($expected, Zend_Ldap_Converter::fromLdapDatetime($convert,$utc));
+        $this->assertEquals($expected, Zend_Ldap_Converter::fromLdapDateTime($convert,$utc));
     }
 
     public function fromLdapDateTimeProvider ()
@@ -228,7 +228,7 @@ class Zend_Ldap_ConverterTest extends PHPUnit\Framework\TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        Zend_Ldap_Converter::fromLdapDatetime($value);
+        Zend_Ldap_Converter::fromLdapDateTime($value);
     }
 
     public static function fromLdapDateTimeException ()
