@@ -66,7 +66,6 @@ class Zend_Ldap_ConverterTest extends PHPUnit\Framework\TestCase
     }
 
     public function toLdapDateTimeProvider(){
-        include_once 'Zend/Date.php';
         $tz = new DateTimeZone('UTC');
         return array(
             array(array('date'=> 0, 'utc' => true ),'19700101000000Z'),
