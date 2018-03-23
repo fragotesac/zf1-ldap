@@ -120,10 +120,6 @@ class Zend_Ldap_OfflineTest extends PHPUnit\Framework\TestCase
 
     public function testConfigObject()
     {
-        /**
-         * @see Zend_Config
-         */
-        require_once 'Zend/Config.php';
         $config = new Zend_Config(array(
             'host' => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
