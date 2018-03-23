@@ -1,2 +1,5 @@
 parameters:
+    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
     ignoreErrors:
+        - '#Constructor of class Zend_Ldap_Filter_Mask has an unused parameter \$value\.#'
+        - '#Cannot call method getRdnString\(\) on array\.#'
