@@ -26,15 +26,6 @@
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'OnlineTestCase.php';
 
 /**
- * @see Zend_Ldap_Dn
- */
-require_once 'Zend/Ldap/Dn.php';
-/**
- * @see Zend_Ldap_Filter
- */
-require_once 'Zend/Ldap/Filter.php';
-
-/**
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage UnitTests

@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Ldap_Attribute
- */
-require_once 'Zend/Ldap/Attribute.php';
 
 /**
  * @category   Zend

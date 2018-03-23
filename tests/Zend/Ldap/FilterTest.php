@@ -20,18 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Ldap_Filter
- */
-require_once 'Zend/Ldap/Filter.php';
-/**
- * Zend_Ldap_Filter_And
- */
-require_once 'Zend/Ldap/Filter/And.php';
-/**
- * Zend_Ldap_Filter_Or
- */
-require_once 'Zend/Ldap/Filter/Or.php';
 
 /**
  * @category   Zend

@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * @see Zend_Ldap_Node
- */
-require_once 'Zend/Ldap/Node.php';
 
 /**
  * @category   Zend

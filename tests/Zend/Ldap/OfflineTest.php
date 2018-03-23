@@ -22,16 +22,6 @@
 
 
 /**
- * @see Zend_Ldap
- */
-require_once 'Zend/Ldap.php';
-/**
- * @see Zend_Ldap_Exception
- */
-require_once 'Zend/Ldap/Exception.php';
-
-
-/**
  * @category   Zend
  * @package    Zend_Ldap
  * @subpackage UnitTests

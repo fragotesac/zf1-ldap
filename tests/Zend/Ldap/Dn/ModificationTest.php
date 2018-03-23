@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Ldap_Dn
- */
-require_once 'Zend/Ldap/Dn.php';
 
 /**
  * @category   Zend

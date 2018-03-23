@@ -20,10 +20,6 @@
  * @version    $Id$
  */
 
-/**
- * Zend_Ldap_Converter
- */
-require_once 'Zend/Ldap/Converter.php';
 
 /**
  * @category   Zend
