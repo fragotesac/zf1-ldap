@@ -40,8 +40,7 @@
  * @property mixed $structural
  * @property mixed $sup
  */
-class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_Item
-    implements Zend_Ldap_Node_Schema_ObjectClass_Interface
+class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_Item implements Zend_Ldap_Node_Schema_ObjectClass_Interface
 {
     /**
      * All inherited "MUST" attributes
@@ -111,18 +110,18 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
     protected function _resolveInheritance()
     {
         $must = $this->must;
-        $may = $this->may;
+        $may  = $this->may;
         foreach ($this->getParents() as $p) {
             $must = array_merge($must, $p->getMustContain());
-            $may = array_merge($may, $p->getMayContain());
+            $may  = array_merge($may, $p->getMayContain());
         }
         $must = array_unique($must);
-        $may = array_unique($may);
-        $may = array_diff($may, $must);
+        $may  = array_unique($may);
+        $may  = array_diff($may, $must);
         sort($must, SORT_STRING);
         sort($may, SORT_STRING);
         $this->_inheritedMust = $must;
-        $this->_inheritedMay = $may;
+        $this->_inheritedMay  = $may;
     }
 
     /**
@@ -144,9 +143,9 @@ class Zend_Ldap_Node_Schema_ObjectClass_OpenLdap extends Zend_Ldap_Node_Schema_I
     {
         if ($this->structural) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_STRUCTURAL;
-        } else if ($this->abstract) {
+        } elseif ($this->abstract) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_ABSTRACT;
-        } else if ($this->auxiliary) {
+        } elseif ($this->auxiliary) {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_AUXILIARY;
         } else {
             return Zend_Ldap_Node_Schema::OBJECTCLASS_TYPE_UNKNOWN;

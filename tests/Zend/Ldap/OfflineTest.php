@@ -83,10 +83,10 @@ class Zend_Ldap_OfflineTest extends PHPUnit\Framework\TestCase
     public function testOptionsGetter()
     {
         $options = array(
-            'host' => TESTS_ZEND_LDAP_HOST,
+            'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn' => TESTS_ZEND_LDAP_BASE_DN,
+            'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
         );
         $ldap = new Zend_Ldap($options);
         $this->assertEquals(array(
@@ -111,10 +111,10 @@ class Zend_Ldap_OfflineTest extends PHPUnit\Framework\TestCase
     public function testConfigObject()
     {
         $config = new Zend_Config(array(
-            'host' => TESTS_ZEND_LDAP_HOST,
+            'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn' => TESTS_ZEND_LDAP_BASE_DN,
+            'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
         ));
         $ldap = new Zend_Ldap($config);
         $this->assertEquals(array(

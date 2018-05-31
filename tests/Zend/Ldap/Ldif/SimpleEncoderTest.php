@@ -97,9 +97,9 @@ class Zend_Ldap_Ldif_SimpleEncoderTest extends Zend_Ldap_TestCase
 
     public function testChangedWrapCount()
     {
-        $input = '56789012345678901234567890';
+        $input    = '56789012345678901234567890';
         $expected = 'dn: 567890' . PHP_EOL . ' 1234567890' . PHP_EOL . ' 1234567890';
-        $output = Zend_Ldap_Ldif_Encoder::encode(array('dn' => $input), array('wrap' => 10));
+        $output   = Zend_Ldap_Ldif_Encoder::encode(array('dn' => $input), array('wrap' => 10));
         $this->assertEquals($expected, $output);
     }
 
@@ -128,7 +128,7 @@ class Zend_Ldap_Ldif_SimpleEncoderTest extends Zend_Ldap_TestCase
 
     public function testSorting()
     {
-        $data=array(
+        $data = array(
             'cn'          => array('name'),
             'dn'          => 'cn=name,dc=example,dc=org',
             'host'        => array('a', 'b', 'c'),
@@ -167,7 +167,7 @@ class Zend_Ldap_Ldif_SimpleEncoderTest extends Zend_Ldap_TestCase
 
     public function testNodeEncoding()
     {
-        $node = $this->_createTestNode();
+        $node     = $this->_createTestNode();
         $expected = 'version: 1' . PHP_EOL .
             'dn: cn=name,dc=example,dc=org' . PHP_EOL .
             'objectclass: account' . PHP_EOL .
@@ -188,7 +188,7 @@ class Zend_Ldap_Ldif_SimpleEncoderTest extends Zend_Ldap_TestCase
 
     public function testSupressVersionHeader()
     {
-        $data=array(
+        $data = array(
             'cn'          => array('name'),
             'dn'          => 'cn=name,dc=example,dc=org',
             'host'        => array('a', 'b', 'c'),
@@ -212,7 +212,7 @@ class Zend_Ldap_Ldif_SimpleEncoderTest extends Zend_Ldap_TestCase
 
     public function testEncodingWithJapaneseCharacters()
     {
-        $data=array(
+        $data = array(
             'dn'                         => 'uid=rogasawara,ou=営業部,o=Airius',
             'objectclass'                => array('top', 'person', 'organizationalPerson', 'inetOrgPerson'),
             'uid'                        => array('rogasawara'),

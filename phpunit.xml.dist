@@ -21,6 +21,11 @@
         <const name="TESTS_ZEND_LDAP_ALT_DN" value="CN=Another User,OU=Sales,DC=example,DC=com" />
         <const name="TESTS_ZEND_LDAP_ALT_PASSWORD" value="null" />
     </php>
+    <testsuites>
+        <testsuite name="default">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./src</directory>

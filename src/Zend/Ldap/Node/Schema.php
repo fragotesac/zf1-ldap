@@ -45,7 +45,7 @@ class Zend_Ldap_Node_Schema extends Zend_Ldap_Node_Abstract
      */
     public static function create(Zend_Ldap $ldap)
     {
-        $dn = $ldap->getRootDse()->getSchemaDn();
+        $dn   = $ldap->getRootDse()->getSchemaDn();
         $data = $ldap->getEntry($dn, array('*', '+'), true);
         switch ($ldap->getRootDse()->getServerType()) {
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_ACTIVEDIRECTORY:

@@ -31,8 +31,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @property array $ldapdisplayname
  */
-class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_Schema_Item
-    implements Zend_Ldap_Node_Schema_ObjectClass_Interface
+class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_Schema_Item implements Zend_Ldap_Node_Schema_ObjectClass_Interface
 {
     /**
      * Gets the objectClass name
@@ -51,7 +50,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getOid()
     {
-
     }
 
     /**
@@ -61,7 +59,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getMustContain()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getMayContain()
     {
-
     }
 
     /**
@@ -81,7 +77,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getDescription()
     {
-
     }
 
     /**
@@ -91,7 +86,6 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getType()
     {
-
     }
 
     /**
@@ -102,6 +96,5 @@ class Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory extends Zend_Ldap_Node_S
      */
     public function getParentClasses()
     {
-
     }
 }

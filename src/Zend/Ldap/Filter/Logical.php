@@ -57,13 +57,14 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
     protected function __construct(array $subfilters, $symbol)
     {
         foreach ($subfilters as $key => $s) {
-            if (is_string($s)) $subfilters[$key] = new Zend_Ldap_Filter_String($s);
-            else if (!($s instanceof Zend_Ldap_Filter_Abstract)) {
+            if (is_string($s)) {
+                $subfilters[$key] = new Zend_Ldap_Filter_String($s);
+            } elseif (!($s instanceof Zend_Ldap_Filter_Abstract)) {
                 throw new Zend_Ldap_Filter_Exception('Only strings or Zend_Ldap_Filter_Abstract allowed.');
             }
         }
         $this->_subfilters = $subfilters;
-        $this->_symbol = $symbol;
+        $this->_symbol     = $symbol;
     }
 
     /**
@@ -74,7 +75,7 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
      */
     public function addFilter(Zend_Ldap_Filter_Abstract $filter)
     {
-        $new = clone $this;
+        $new                = clone $this;
         $new->_subfilters[] = $filter;
         return $new;
     }
@@ -87,7 +88,9 @@ abstract class Zend_Ldap_Filter_Logical extends Zend_Ldap_Filter_Abstract
     public function toString()
     {
         $return = '(' . $this->_symbol;
-        foreach ($this->_subfilters as $sub) $return .= $sub->toString();
+        foreach ($this->_subfilters as $sub) {
+            $return .= $sub->toString();
+        }
         $return .= ')';
         return $return;
     }

@@ -30,9 +30,9 @@
  */
 class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
 {
-    const ATTRIBUTE_TO_LOWER  = 1;
-    const ATTRIBUTE_TO_UPPER  = 2;
-    const ATTRIBUTE_NATIVE    = 3;
+    const ATTRIBUTE_TO_LOWER = 1;
+    const ATTRIBUTE_TO_UPPER = 2;
+    const ATTRIBUTE_NATIVE   = 3;
 
     /**
      * LDAP Connection
@@ -78,8 +78,8 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
      */
     public function __construct(Zend_Ldap $ldap, $resultId)
     {
-        $this->_ldap = $ldap;
-        $this->_resultId = $resultId;
+        $this->_ldap      = $ldap;
+        $this->_resultId  = $resultId;
         $this->_itemCount = @ldap_count_entries($ldap->getResource(), $resultId);
         if ($this->_itemCount === false) {
             throw new Zend_Ldap_Exception($this->_ldap, 'counting entries');
@@ -100,9 +100,9 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
     {
         $isClosed = false;
         if (is_resource($this->_resultId)) {
-             $isClosed = @ldap_free_result($this->_resultId);
-             $this->_resultId = null;
-             $this->_current = null;
+            $isClosed        = @ldap_free_result($this->_resultId);
+            $this->_resultId = null;
+            $this->_current  = null;
         }
         return $isClosed;
     }
@@ -135,7 +135,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
         if (is_callable($attributeNameTreatment)) {
             if (is_string($attributeNameTreatment) && !function_exists($attributeNameTreatment)) {
                 $this->_attributeNameTreatment = self::ATTRIBUTE_TO_LOWER;
-            } else if (is_array($attributeNameTreatment) &&
+            } elseif (is_array($attributeNameTreatment) &&
                     !method_exists($attributeNameTreatment[0], $attributeNameTreatment[1])) {
                 $this->_attributeNameTreatment = self::ATTRIBUTE_TO_LOWER;
             } else {
@@ -194,14 +194,14 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
             return null;
         }
 
-        $entry = array('dn' => $this->key());
+        $entry          = array('dn' => $this->key());
         $ber_identifier = null;
-        $name = @ldap_first_attribute($this->_ldap->getResource(), $this->_current);
+        $name           = @ldap_first_attribute($this->_ldap->getResource(), $this->_current);
         while ($name) {
             $data = @ldap_get_values_len($this->_ldap->getResource(), $this->_current, $name);
             unset($data['count']);
 
-            switch($this->_attributeNameTreatment) {
+            switch ($this->_attributeNameTreatment) {
                 case self::ATTRIBUTE_TO_LOWER:
                     $attrName = strtolower($name);
                     break;
@@ -216,7 +216,7 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
                     break;
             }
             $entry[$attrName] = $data;
-            $name = @ldap_next_attribute($this->_ldap->getResource(), $this->_current);
+            $name             = @ldap_next_attribute($this->_ldap->getResource(), $this->_current);
         }
         ksort($entry, SORT_LOCALE_STRING);
         return $entry;
@@ -259,8 +259,8 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
                 if ($code === Zend_Ldap_Exception::LDAP_SIZELIMIT_EXCEEDED) {
                     // we have reached the size limit enforced by the server
                     return;
-                } else if ($code > Zend_Ldap_Exception::LDAP_SUCCESS) {
-                     throw new Zend_Ldap_Exception($this->_ldap, 'getting next entry (' . $msg . ')');
+                } elseif ($code > Zend_Ldap_Exception::LDAP_SUCCESS) {
+                    throw new Zend_Ldap_Exception($this->_ldap, 'getting next entry (' . $msg . ')');
                 }
             }
         } else {
@@ -296,5 +296,4 @@ class Zend_Ldap_Collection_Iterator_Default implements Iterator, Countable
     {
         return (is_resource($this->_current));
     }
-
 }

@@ -31,8 +31,7 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @property array $ldapdisplayname
  */
-class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node_Schema_Item
-    implements Zend_Ldap_Node_Schema_AttributeType_Interface
+class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node_Schema_Item implements Zend_Ldap_Node_Schema_AttributeType_Interface
 {
     /**
      * Gets the attribute name
@@ -51,7 +50,6 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
      */
     public function getOid()
     {
-
     }
 
     /**
@@ -61,7 +59,6 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
      */
     public function getSyntax()
     {
-
     }
 
     /**
@@ -71,7 +68,6 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
      */
     public function getMaxLength()
     {
-
     }
 
     /**
@@ -81,7 +77,6 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
      */
     public function isSingleValued()
     {
-
     }
 
     /**
@@ -91,6 +86,5 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
      */
     public function getDescription()
     {
-
     }
 }

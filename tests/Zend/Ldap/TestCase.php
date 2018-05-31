@@ -36,7 +36,7 @@ abstract class Zend_Ldap_TestCase extends PHPUnit\Framework\TestCase
      */
     protected function _createTestArrayData()
     {
-        $data=array(
+        $data = array(
             'dn'          => 'cn=name,dc=example,dc=org',
             'cn'          => array('name'),
             'host'        => array('a', 'b', 'c'),

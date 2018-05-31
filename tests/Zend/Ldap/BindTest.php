@@ -37,9 +37,9 @@
  */
 class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
 {
-    protected $_options = null;
-    protected $_principalName = TESTS_ZEND_LDAP_PRINCIPAL_NAME;
-    protected $_altUsername = TESTS_ZEND_LDAP_ALT_USERNAME;
+    protected $_options        = null;
+    protected $_principalName  = TESTS_ZEND_LDAP_PRINCIPAL_NAME;
+    protected $_altUsername    = TESTS_ZEND_LDAP_ALT_USERNAME;
     protected $_bindRequiresDn = false;
 
     public function setUp()
@@ -51,30 +51,39 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
         }
 
         $this->_options = array(
-            'host' => TESTS_ZEND_LDAP_HOST,
+            'host'     => TESTS_ZEND_LDAP_HOST,
             'username' => TESTS_ZEND_LDAP_USERNAME,
             'password' => TESTS_ZEND_LDAP_PASSWORD,
-            'baseDn' => TESTS_ZEND_LDAP_BASE_DN,
+            'baseDn'   => TESTS_ZEND_LDAP_BASE_DN,
         );
-        if (defined('TESTS_ZEND_LDAP_PORT'))
+        if (defined('TESTS_ZEND_LDAP_PORT')) {
             $this->_options['port'] = TESTS_ZEND_LDAP_PORT;
-        if (defined('TESTS_ZEND_LDAP_USE_START_TLS'))
+        }
+        if (defined('TESTS_ZEND_LDAP_USE_START_TLS')) {
             $this->_options['useStartTls'] = TESTS_ZEND_LDAP_USE_START_TLS;
-        if (defined('TESTS_ZEND_LDAP_USE_SSL'))
+        }
+        if (defined('TESTS_ZEND_LDAP_USE_SSL')) {
             $this->_options['useSsl'] = TESTS_ZEND_LDAP_USE_SSL;
-        if (defined('TESTS_ZEND_LDAP_BIND_REQUIRES_DN'))
+        }
+        if (defined('TESTS_ZEND_LDAP_BIND_REQUIRES_DN')) {
             $this->_options['bindRequiresDn'] = TESTS_ZEND_LDAP_BIND_REQUIRES_DN;
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT'))
+        }
+        if (defined('TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT')) {
             $this->_options['accountFilterFormat'] = TESTS_ZEND_LDAP_ACCOUNT_FILTER_FORMAT;
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME'))
+        }
+        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME')) {
             $this->_options['accountDomainName'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME;
-        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT'))
+        }
+        if (defined('TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT')) {
             $this->_options['accountDomainNameShort'] = TESTS_ZEND_LDAP_ACCOUNT_DOMAIN_NAME_SHORT;
-        if (defined('TESTS_ZEND_LDAP_ALT_USERNAME'))
+        }
+        if (defined('TESTS_ZEND_LDAP_ALT_USERNAME')) {
             $this->_altUsername = TESTS_ZEND_LDAP_ALT_USERNAME;
+        }
 
-        if (isset($this->_options['bindRequiresDn']))
+        if (isset($this->_options['bindRequiresDn'])) {
             $this->_bindRequiresDn = $this->_options['bindRequiresDn'];
+        }
     }
 
     public function testEmptyOptionsBind()
@@ -118,7 +127,7 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
     {
         $options = $this->_options;
         unset($options['accountDomainName']);
-        $options['bindRequiresDn'] = false;
+        $options['bindRequiresDn']       = false;
         $options['accountCanonicalForm'] = Zend_Ldap::ACCTNAME_FORM_PRINCIPAL;
 
         $ldap = new Zend_Ldap($options);
@@ -143,7 +152,7 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
     }
     public function testExplicitParamsBind()
     {
-        $options = $this->_options;
+        $options  = $this->_options;
         $username = $options['username'];
         $password = $options['password'];
 
@@ -189,24 +198,25 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
 
     public function testBindWithEmptyPassword()
     {
-        $options = $this->_options;
+        $options                       = $this->_options;
         $options['allowEmptyPassword'] = false;
-        $ldap = new Zend_Ldap($options);
+        $ldap                          = new Zend_Ldap($options);
         try {
             $ldap->bind($this->_altUsername, '');
             $this->fail('Expected exception for empty password');
         } catch (Zend_Ldap_Exception $zle) {
-            $this->assertContains('Empty password not allowed - see allowEmptyPassword option.',
-                $zle->getMessage());
+            $this->assertContains(
+                'Empty password not allowed - see allowEmptyPassword option.',
+                $zle->getMessage()
+            );
         }
 
         $options['allowEmptyPassword'] = true;
-        $ldap = new Zend_Ldap($options);
+        $ldap                          = new Zend_Ldap($options);
         try {
             $ldap->bind($this->_altUsername, '');
         } catch (Zend_Ldap_Exception $zle) {
-            if ($zle->getMessage() ===
-                    'Empty password not allowed - see allowEmptyPassword option.') {
+            if ($zle->getMessage() === 'Empty password not allowed - see allowEmptyPassword option.') {
                 $this->fail('Exception for empty password');
             } else {
                 $message = $zle->getMessage();
@@ -220,16 +230,18 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
 
     public function testBindWithoutDnUsernameAndDnRequired()
     {
-        $options = $this->_options;
-        $options['username'] = TESTS_ZEND_LDAP_ALT_USERNAME;
+        $options                   = $this->_options;
+        $options['username']       = TESTS_ZEND_LDAP_ALT_USERNAME;
         $options['bindRequiresDn'] = true;
-        $ldap = new Zend_Ldap($options);
+        $ldap                      = new Zend_Ldap($options);
         try {
             $ldap->bind();
             $this->fail('Expected exception for empty password');
         } catch (Zend_Ldap_Exception $zle) {
-            $this->assertContains('Binding requires username in DN form',
-                $zle->getMessage());
+            $this->assertContains(
+                'Binding requires username in DN form',
+                $zle->getMessage()
+            );
         }
     }
 

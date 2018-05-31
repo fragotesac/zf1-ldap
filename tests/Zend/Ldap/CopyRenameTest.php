@@ -66,31 +66,25 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
         parent::setUp();
         $this->_prepareLdapServer();
 
-        $this->_orgDn=$this->_createDn('ou=OrgTest,');
-        $this->_newDn=$this->_createDn('ou=NewTest,');
-        $this->_orgSubTreeDn=$this->_createDn('ou=OrgSubtree,');
-        $this->_newSubTreeDn=$this->_createDn('ou=NewSubtree,');
-        $this->_targetSubTreeDn=$this->_createDn('ou=Target,');
+        $this->_orgDn           = $this->_createDn('ou=OrgTest,');
+        $this->_newDn           = $this->_createDn('ou=NewTest,');
+        $this->_orgSubTreeDn    = $this->_createDn('ou=OrgSubtree,');
+        $this->_newSubTreeDn    = $this->_createDn('ou=NewSubtree,');
+        $this->_targetSubTreeDn = $this->_createDn('ou=Target,');
 
-        $this->_nodes=array(
-            $this->_orgDn => array("objectClass" => "organizationalUnit", "ou" => "OrgTest"),
-            $this->_orgSubTreeDn =>  array("objectClass" => "organizationalUnit", "ou" => "OrgSubtree"),
-            'ou=Subtree1,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree1"),
-            'ou=Subtree11,ou=Subtree1,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree11"),
-            'ou=Subtree12,ou=Subtree1,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree12"),
-            'ou=Subtree13,ou=Subtree1,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree13"),
-            'ou=Subtree2,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree2"),
-            'ou=Subtree3,' . $this->_orgSubTreeDn =>
-                array("objectClass" => "organizationalUnit", "ou" => "Subtree3"),
-            $this->_targetSubTreeDn => array("objectClass" => "organizationalUnit", "ou" => "Target")
+        $this->_nodes = array(
+            $this->_orgDn                                      => array('objectClass' => 'organizationalUnit', 'ou' => 'OrgTest'),
+            $this->_orgSubTreeDn                               => array('objectClass' => 'organizationalUnit', 'ou' => 'OrgSubtree'),
+            'ou=Subtree1,' . $this->_orgSubTreeDn              => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree1'),
+            'ou=Subtree11,ou=Subtree1,' . $this->_orgSubTreeDn => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree11'),
+            'ou=Subtree12,ou=Subtree1,' . $this->_orgSubTreeDn => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree12'),
+            'ou=Subtree13,ou=Subtree1,' . $this->_orgSubTreeDn => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree13'),
+            'ou=Subtree2,' . $this->_orgSubTreeDn              => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree2'),
+            'ou=Subtree3,' . $this->_orgSubTreeDn              => array('objectClass' => 'organizationalUnit', 'ou' => 'Subtree3'),
+            $this->_targetSubTreeDn                            => array('objectClass' => 'organizationalUnit', 'ou' => 'Target')
         );
 
-        $ldap=$this->_getLdap()->getResource();
+        $ldap = $this->_getLdap()->getResource();
         foreach ($this->_nodes as $dn => $entry) {
             ldap_add($ldap, $dn, $entry);
         }
@@ -99,16 +93,21 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
     protected function tearDown()
     {
         if ($this->_getLdap() !== null) {
-            if ($this->_getLdap()->exists($this->_newDn))
+            if ($this->_getLdap()->exists($this->_newDn)) {
                 $this->_getLdap()->delete($this->_newDn, false);
-            if ($this->_getLdap()->exists($this->_orgDn))
+            }
+            if ($this->_getLdap()->exists($this->_orgDn)) {
                 $this->_getLdap()->delete($this->_orgDn, false);
-            if ($this->_getLdap()->exists($this->_orgSubTreeDn))
+            }
+            if ($this->_getLdap()->exists($this->_orgSubTreeDn)) {
                 $this->_getLdap()->delete($this->_orgSubTreeDn, true);
-            if ($this->_getLdap()->exists($this->_newSubTreeDn))
+            }
+            if ($this->_getLdap()->exists($this->_newSubTreeDn)) {
                 $this->_getLdap()->delete($this->_newSubTreeDn, true);
-            if ($this->_getLdap()->exists($this->_targetSubTreeDn))
+            }
+            if ($this->_getLdap()->exists($this->_targetSubTreeDn)) {
                 $this->_getLdap()->delete($this->_targetSubTreeDn, true);
+            }
         }
 
         $this->_cleanupLdapServer();
@@ -117,11 +116,11 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafRename()
     {
-        $org=$this->_getLdap()->getEntry($this->_orgDn, array(), true);
+        $org = $this->_getLdap()->getEntry($this->_orgDn, array(), true);
         $this->_getLdap()->rename($this->_orgDn, $this->_newDn, false);
         $this->assertFalse($this->_getLdap()->exists($this->_orgDn));
         $this->assertTrue($this->_getLdap()->exists($this->_newDn));
-        $new=$this->_getLdap()->getEntry($this->_newDn);
+        $new = $this->_getLdap()->getEntry($this->_newDn);
         $this->assertEquals($org['objectclass'], $new['objectclass']);
         $this->assertEquals(array('NewTest'), $new['ou']);
     }
@@ -191,8 +190,12 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $this->_getLdap()->rename($this->_orgDn, $this->_createDn('ou=Test1,ou=ParentDoesNotExist,'),
-            false, true);
+        $this->_getLdap()->rename(
+            $this->_orgDn,
+            $this->_createDn('ou=Test1,ou=ParentDoesNotExist,'),
+            false,
+            true
+        );
     }
 
     public function testSimpleLeafRenameEmulation()
@@ -258,8 +261,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafRenameWithDnObjects()
     {
-        $orgDn=Zend_Ldap_Dn::fromString($this->_orgDn);
-        $newDn=Zend_Ldap_Dn::fromString($this->_newDn);
+        $orgDn = Zend_Ldap_Dn::fromString($this->_orgDn);
+        $newDn = Zend_Ldap_Dn::fromString($this->_newDn);
 
         $this->_getLdap()->rename($orgDn, $newDn, false);
         $this->assertFalse($this->_getLdap()->exists($orgDn));
@@ -272,8 +275,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafMoveToSubtreeWithDnObjects()
     {
-        $orgDn=Zend_Ldap_Dn::fromString($this->_orgDn);
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $orgDn        = Zend_Ldap_Dn::fromString($this->_orgDn);
+        $orgSubTreeDn = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
 
         $this->_getLdap()->moveToSubtree($orgDn, $orgSubTreeDn, false);
         $this->assertFalse($this->_getLdap()->exists($orgDn));
@@ -282,8 +285,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafRenameEmulationWithDnObjects()
     {
-        $orgDn=Zend_Ldap_Dn::fromString($this->_orgDn);
-        $newDn=Zend_Ldap_Dn::fromString($this->_newDn);
+        $orgDn = Zend_Ldap_Dn::fromString($this->_orgDn);
+        $newDn = Zend_Ldap_Dn::fromString($this->_newDn);
 
         $this->_getLdap()->rename($orgDn, $newDn, false, true);
         $this->assertFalse($this->_getLdap()->exists($orgDn));
@@ -292,8 +295,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafCopyToSubtreeWithDnObjects()
     {
-        $orgDn=Zend_Ldap_Dn::fromString($this->_orgDn);
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $orgDn        = Zend_Ldap_Dn::fromString($this->_orgDn);
+        $orgSubTreeDn = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
 
         $this->_getLdap()->copyToSubtree($orgDn, $orgSubTreeDn, false);
         $this->assertTrue($this->_getLdap()->exists($orgDn));
@@ -302,8 +305,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testSimpleLeafCopyWithDnObjects()
     {
-        $orgDn=Zend_Ldap_Dn::fromString($this->_orgDn);
-        $newDn=Zend_Ldap_Dn::fromString($this->_newDn);
+        $orgDn = Zend_Ldap_Dn::fromString($this->_orgDn);
+        $newDn = Zend_Ldap_Dn::fromString($this->_newDn);
 
         $this->_getLdap()->copy($orgDn, $newDn, false);
         $this->assertTrue($this->_getLdap()->exists($orgDn));
@@ -312,8 +315,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testRecursiveRenameWithDnObjects()
     {
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
-        $newSubTreeDn=Zend_Ldap_Dn::fromString($this->_newSubTreeDn);
+        $orgSubTreeDn = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $newSubTreeDn = Zend_Ldap_Dn::fromString($this->_newSubTreeDn);
 
         $this->_getLdap()->rename($orgSubTreeDn, $newSubTreeDn, true);
         $this->assertFalse($this->_getLdap()->exists($orgSubTreeDn));
@@ -324,8 +327,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testRecursiveMoveToSubtreeWithDnObjects()
     {
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
-        $targetSubTreeDn=Zend_Ldap_Dn::fromString($this->_targetSubTreeDn);
+        $orgSubTreeDn    = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $targetSubTreeDn = Zend_Ldap_Dn::fromString($this->_targetSubTreeDn);
 
         $this->_getLdap()->moveToSubtree($orgSubTreeDn, $targetSubTreeDn, true);
         $this->assertFalse($this->_getLdap()->exists($orgSubTreeDn));
@@ -336,8 +339,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testRecursiveCopyToSubtreeWithDnObjects()
     {
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
-        $targetSubTreeDn=Zend_Ldap_Dn::fromString($this->_targetSubTreeDn);
+        $orgSubTreeDn    = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $targetSubTreeDn = Zend_Ldap_Dn::fromString($this->_targetSubTreeDn);
 
         $this->_getLdap()->copyToSubtree($orgSubTreeDn, $targetSubTreeDn, true);
         $this->assertTrue($this->_getLdap()->exists($orgSubTreeDn));
@@ -350,8 +353,8 @@ class Zend_Ldap_CopyRenameTest extends Zend_Ldap_OnlineTestCase
 
     public function testRecursiveCopyWithDnObjects()
     {
-        $orgSubTreeDn=Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
-        $newSubTreeDn=Zend_Ldap_Dn::fromString($this->_newSubTreeDn);
+        $orgSubTreeDn = Zend_Ldap_Dn::fromString($this->_orgSubTreeDn);
+        $newSubTreeDn = Zend_Ldap_Dn::fromString($this->_newSubTreeDn);
 
         $this->_getLdap()->copy($orgSubTreeDn, $newSubTreeDn, true);
         $this->assertTrue($this->_getLdap()->exists($orgSubTreeDn));

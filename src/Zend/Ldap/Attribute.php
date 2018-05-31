@@ -47,28 +47,27 @@ class Zend_Ldap_Attribute
     public static function setAttribute(array &$data, $attribName, $value, $append = false)
     {
         $attribName = strtolower($attribName);
-        $valArray = array();
-        if (is_array($value) || ($value instanceof Traversable))
-        {
-            foreach ($value as $v)
-            {
+        $valArray   = array();
+        if (is_array($value) || ($value instanceof Traversable)) {
+            foreach ($value as $v) {
                 $v = self::_valueToLdap($v);
-                if ($v !== null) $valArray[] = $v;
+                if ($v !== null) {
+                    $valArray[] = $v;
+                }
+            }
+        } elseif ($value !== null) {
+            $value = self::_valueToLdap($value);
+            if ($value !== null) {
+                $valArray[] = $value;
             }
         }
-        else if ($value !== null)
-        {
-            $value = self::_valueToLdap($value);
-            if ($value !== null) $valArray[] = $value;
-        }
 
-        if ($append === true && isset($data[$attribName]))
-        {
-            if (is_string($data[$attribName])) $data[$attribName] = array($data[$attribName]);
+        if ($append === true && isset($data[$attribName])) {
+            if (is_string($data[$attribName])) {
+                $data[$attribName] = array($data[$attribName]);
+            }
             $data[$attribName] = array_merge($data[$attribName], $valArray);
-        }
-        else
-        {
+        } else {
             $data[$attribName] = $valArray;
         }
     }
@@ -85,17 +84,18 @@ class Zend_Ldap_Attribute
     {
         $attribName = strtolower($attribName);
         if ($index === null) {
-            if (!isset($data[$attribName])) return array();
+            if (!isset($data[$attribName])) {
+                return array();
+            }
             $retArray = array();
-            foreach ($data[$attribName] as $v)
-            {
+            foreach ($data[$attribName] as $v) {
                 $retArray[] = self::_valueFromLdap($v);
             }
             return $retArray;
-        } else if (is_int($index)) {
+        } elseif (is_int($index)) {
             if (!isset($data[$attribName])) {
                 return null;
-            } else if ($index >= 0 && $index<count($data[$attribName])) {
+            } elseif ($index >= 0 && $index < count($data[$attribName])) {
                 return self::_valueFromLdap($data[$attribName][$index]);
             } else {
                 return null;
@@ -115,7 +115,9 @@ class Zend_Ldap_Attribute
     public static function attributeHasValue(array &$data, $attribName, $value)
     {
         $attribName = strtolower($attribName);
-        if (!isset($data[$attribName])) return false;
+        if (!isset($data[$attribName])) {
+            return false;
+        }
 
         if (is_scalar($value)) {
             $value = array($value);
@@ -140,7 +142,9 @@ class Zend_Ldap_Attribute
     public static function removeDuplicatesFromAttribute(array &$data, $attribName)
     {
         $attribName = strtolower($attribName);
-        if (!isset($data[$attribName])) return;
+        if (!isset($data[$attribName])) {
+            return;
+        }
         $data[$attribName] = array_values(array_unique($data[$attribName]));
     }
 
@@ -155,17 +159,20 @@ class Zend_Ldap_Attribute
     public static function removeFromAttribute(array &$data, $attribName, $value)
     {
         $attribName = strtolower($attribName);
-        if (!isset($data[$attribName])) return;
+        if (!isset($data[$attribName])) {
+            return;
+        }
 
         if (is_scalar($value)) {
             $value = array($value);
         }
 
         $valArray = array();
-        foreach ($value as $v)
-        {
+        foreach ($value as $v) {
             $v = self::_valueToLdap($v);
-            if ($v !== null) $valArray[] = $v;
+            if ($v !== null) {
+                $valArray[] = $v;
+            }
         }
 
         $resultArray = $data[$attribName];
@@ -175,7 +182,7 @@ class Zend_Ldap_Attribute
                 unset($resultArray[$k]);
             }
         }
-        $resultArray = array_values($resultArray);
+        $resultArray       = array_values($resultArray);
         $data[$attribName] = $resultArray;
     }
 
@@ -262,9 +269,12 @@ class Zend_Ldap_Attribute
      * @param  string|null $attribName
      * @return void
      */
-    public static function setPassword(array &$data, $password, $hashType = self::PASSWORD_HASH_MD5,
-        $attribName = null)
-    {
+    public static function setPassword(
+        array &$data,
+        $password,
+        $hashType = self::PASSWORD_HASH_MD5,
+        $attribName = null
+    ) {
         if ($attribName === null) {
             if ($hashType === self::PASSWORD_UNICODEPWD) {
                 $attribName = 'unicodePwd';
@@ -294,12 +304,12 @@ class Zend_Ldap_Attribute
                 $password = '"' . $password . '"';
                 if (function_exists('mb_convert_encoding')) {
                     $password = mb_convert_encoding($password, 'UTF-16LE', 'UTF-8');
-                } else if (function_exists('iconv')) {
+                } elseif (function_exists('iconv')) {
                     $password = iconv('UTF-8', 'UTF-16LE', $password);
                 } else {
                     $len = strlen($password);
                     $new = '';
-                    for($i=0; $i < $len; $i++) {
+                    for ($i = 0; $i < $len; $i++) {
                         $new .= $password[$i] . "\x00";
                     }
                     $password = $new;
@@ -338,20 +348,26 @@ class Zend_Ldap_Attribute
      * @param  boolean                   $append
      * @return void
      */
-    public static function setDateTimeAttribute(array &$data, $attribName, $value, $utc = false,
-        $append = false)
-    {
+    public static function setDateTimeAttribute(
+        array &$data,
+        $attribName,
+        $value,
+        $utc = false,
+        $append = false
+    ) {
         $convertedValues = array();
-        if (is_array($value) || ($value instanceof Traversable))
-        {
+        if (is_array($value) || ($value instanceof Traversable)) {
             foreach ($value as $v) {
                 $v = self::_valueToLdapDateTime($v, $utc);
-                if ($v !== null) $convertedValues[] = $v;
+                if ($v !== null) {
+                    $convertedValues[] = $v;
+                }
             }
-        }
-        else if ($value !== null) {
+        } elseif ($value !== null) {
             $value = self::_valueToLdapDateTime($value, $utc);
-            if ($value !== null) $convertedValues[] = $value;
+            if ($value !== null) {
+                $convertedValues[] = $value;
+            }
         }
         self::setAttribute($data, $attribName, $convertedValues, $append);
     }
@@ -365,8 +381,9 @@ class Zend_Ldap_Attribute
     {
         if (is_int($value)) {
             return Zend_Ldap_Converter::toLdapDateTime($value, $utc);
+        } else {
+            return null;
         }
-        else return null;
     }
 
     /**
@@ -381,14 +398,17 @@ class Zend_Ldap_Attribute
     {
         $values = self::getAttribute($data, $attribName, $index);
         if (is_array($values)) {
-            for ($i = 0; $i<count($values); $i++) {
+            for ($i = 0; $i < count($values); $i++) {
                 $newVal = self::_valueFromLdapDateTime($values[$i]);
-                if ($newVal !== null) $values[$i] = $newVal;
+                if ($newVal !== null) {
+                    $values[$i] = $newVal;
+                }
             }
-        }
-        else {
+        } else {
             $newVal = self::_valueFromLdapDateTime($values);
-            if ($newVal !== null) $values = $newVal;
+            if ($newVal !== null) {
+                $values = $newVal;
+            }
         }
         return $values;
     }
@@ -401,12 +421,14 @@ class Zend_Ldap_Attribute
     {
         if ($value instanceof DateTime) {
             return $value->format('U');
-        } else if (is_string($value)) {
+        } elseif (is_string($value)) {
             try {
                 return Zend_Ldap_Converter::fromLdapDateTime($value, false)->format('U');
             } catch (InvalidArgumentException $e) {
                 return null;
             }
-        } else return null;
+        } else {
+            return null;
+        }
     }
 }

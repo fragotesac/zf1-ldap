@@ -43,15 +43,15 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     protected function _assertUtcDateTimeString($localTimestamp, $value)
     {
-        $localOffset = date('Z', $localTimestamp);
+        $localOffset  = date('Z', $localTimestamp);
         $utcTimestamp = $localTimestamp - $localOffset;
         $this->assertEquals(date('YmdHis', $utcTimestamp) . 'Z', $value);
     }
 
     public function testCreateFromArrayStringDn()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
         $this->assertTrue($node instanceof Zend_Ldap_Node);
         $this->assertFalse($node->isAttached());
         $this->assertFalse($node->willBeDeleted());
@@ -61,9 +61,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testCreateFromArrayObjectDn()
     {
-        $data=$this->_createTestArrayData();
-        $data['dn']=Zend_Ldap_Dn::fromString($data['dn']);
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data       = $this->_createTestArrayData();
+        $data['dn'] = Zend_Ldap_Dn::fromString($data['dn']);
+        $node       = Zend_Ldap_Node::fromArray($data);
         $this->assertTrue($node instanceof Zend_Ldap_Node);
         $this->assertFalse($node->isAttached());
     }
@@ -74,9 +74,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $data=$this->_createTestArrayData();
+        $data = $this->_createTestArrayData();
         unset($data['dn']);
-        $node=Zend_Ldap_Node::fromArray($data);
+        $node = Zend_Ldap_Node::fromArray($data);
     }
 
     /**
@@ -85,9 +85,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $data=$this->_createTestArrayData();
-        $data['dn']=5;
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data       = $this->_createTestArrayData();
+        $data['dn'] = 5;
+        $node       = Zend_Ldap_Node::fromArray($data);
     }
 
     /**
@@ -96,16 +96,16 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $data=$this->_createTestArrayData();
-        $data['dn']='name1,cn=name2,dc=example,dc=org';
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data       = $this->_createTestArrayData();
+        $data['dn'] = 'name1,cn=name2,dc=example,dc=org';
+        $node       = Zend_Ldap_Node::fromArray($data);
     }
 
     public function testCreateFromArrayAndEnsureRdnValues()
     {
-        $data=$this->_createTestArrayData();
-        $data['dn']=Zend_Ldap_Dn::fromString($data['dn']);
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data       = $this->_createTestArrayData();
+        $data['dn'] = Zend_Ldap_Dn::fromString($data['dn']);
+        $node       = Zend_Ldap_Node::fromArray($data);
         $this->assertTrue($node instanceof Zend_Ldap_Node);
         $this->assertFalse($node->isAttached());
         unset($data['dn']);
@@ -114,58 +114,58 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetDnString()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
         $this->assertEquals($data['dn'], $node->getDnString());
     }
 
     public function testGetDnArray()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
-        $exA=Zend_Ldap_Dn::explodeDn($data['dn']);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
+        $exA  = Zend_Ldap_Dn::explodeDn($data['dn']);
         $this->assertEquals($exA, $node->getDnArray());
     }
 
     public function testGetDnObject()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
-        $compareDn=Zend_Ldap_Dn::fromString('cn=name,dc=example,dc=org');
+        $data      = $this->_createTestArrayData();
+        $node      = Zend_Ldap_Node::fromArray($data);
+        $compareDn = Zend_Ldap_Dn::fromString('cn=name,dc=example,dc=org');
         $this->assertEquals($compareDn, $node->getDn());
         $this->assertNotSame($node->getDn(), $node->getDn());
     }
 
     public function testGetRdnString()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals('cn=name', $node->getRdnString());
     }
 
     public function testGetRdnArray()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals(array('cn' => 'name'), $node->getRdnArray());
     }
 
     public function testSerialize()
     {
-        $node=$this->_createTestNode();
-        $sdata=serialize($node);
-        $newObject=unserialize($sdata);
+        $node      = $this->_createTestNode();
+        $sdata     = serialize($node);
+        $newObject = unserialize($sdata);
         $this->assertEquals($node, $newObject);
     }
 
     public function testToString()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals('cn=name,dc=example,dc=org', $node->toString());
         $this->assertEquals('cn=name,dc=example,dc=org', (string)$node);
     }
 
     public function testToArray()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals(array(
             'dn'          => 'cn=name,dc=example,dc=org',
             'cn'          => array('name'),
@@ -178,7 +178,7 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testToJson()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals('{"dn":"cn=name,dc=example,dc=org",' .
             '"boolean":[true,false],' .
             '"cn":["name"],' .
@@ -189,8 +189,8 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetData()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
         ksort($data, SORT_STRING);
         unset($data['dn']);
         $this->assertEquals($data, $node->getData());
@@ -198,13 +198,13 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetObjectClass()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals(array('account', 'top'), $node->getObjectClass());
     }
 
     public function testModifyObjectClass()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertEquals(array('account', 'top'), $node->getObjectClass());
 
         $node->setObjectClass('domain');
@@ -223,8 +223,8 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetAttributes()
     {
-        $node=$this->_createTestNode();
-        $expected=array(
+        $node     = $this->_createTestNode();
+        $expected = array(
             'boolean'     => array(true, false),
             'cn'          => array('name'),
             'empty'       => array(),
@@ -242,9 +242,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testAppendToAttributeFirstTime()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $node->appendToAttribute('host', 'newHost');
-        $ts=mktime(12, 30, 30, 6, 25, 2008);
+        $ts = mktime(12, 30, 30, 6, 25, 2008);
         $node->appendToDateTimeAttribute('objectClass', $ts);
         $this->assertEquals('newHost', $node->host[3]);
         $this->assertEquals($ts, $node->getDateTimeAttribute('objectClass', 2));
@@ -252,16 +252,16 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testExistsAttribute()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertFalse($node->existsAttribute('nonExistant'));
         $this->assertFalse($node->existsAttribute('empty', false));
         $this->assertTrue($node->existsAttribute('empty', true));
 
-        $node->newEmpty=null;
+        $node->newEmpty = null;
         $this->assertFalse($node->existsAttribute('newEmpty', false));
         $this->assertTrue($node->existsAttribute('newEmpty', true));
 
-        $node->empty='string';
+        $node->empty = 'string';
         $this->assertTrue($node->existsAttribute('empty', false));
         $this->assertTrue($node->existsAttribute('empty', true));
 
@@ -275,7 +275,7 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
         $timezone = date_default_timezone_get();
         date_default_timezone_set('GMT');
 
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
 
         $node->setAttribute('key', 'value1');
         $this->assertEquals('value1', $node->getAttribute('key', 0));
@@ -289,7 +289,7 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
         $this->assertTrue($node->existsAttribute('key', true));
         $this->assertFalse($node->existsAttribute('key', false));
 
-        $ts=mktime(12, 30, 30, 6, 25, 2008);
+        $ts = mktime(12, 30, 30, 6, 25, 2008);
         $node->setDateTimeAttribute('key', $ts, false);
         $this->_assertLocalDateTimeString($ts, $node->getAttribute('key', 0));
         $this->assertEquals($ts, $node->getDateTimeAttribute('key', 0));
@@ -319,9 +319,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testOverloading()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
 
-        $node->key='value1';
+        $node->key = 'value1';
         $this->assertEquals('value1', $node->key[0]);
         $this->assertTrue(isset($node->key));
         unset($node->key);
@@ -335,8 +335,8 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $node=$this->_createTestNode();
-        $node->cn='test';
+        $node     = $this->_createTestNode();
+        $node->cn = 'test';
     }
 
     /**
@@ -345,22 +345,22 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     {
         $this->expectException(\Zend_Ldap_Exception::class);
 
-        $node=$this->_createTestNode();
-        $node->dn='test';
+        $node     = $this->_createTestNode();
+        $node->dn = 'test';
     }
 
     public function testAttributeAccessDnGet()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $this->assertInternalType('string', $node->dn);
         $this->assertEquals($node->getDn()->toString(), $node->dn);
     }
 
     public function testArrayAccess()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
 
-        $node['key']='value1';
+        $node['key'] = 'value1';
         $this->assertEquals('value1', $node['key'][0]);
         $this->assertTrue(isset($node['key']));
         unset($node['key']);
@@ -370,9 +370,9 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testCreateEmptyNode()
     {
-        $dn='cn=name,dc=example,dc=org';
-        $objectClass=array('account', 'test', 'inetOrgPerson');
-        $node=Zend_Ldap_Node::create($dn, $objectClass);
+        $dn          = 'cn=name,dc=example,dc=org';
+        $objectClass = array('account', 'test', 'inetOrgPerson');
+        $node        = Zend_Ldap_Node::create($dn, $objectClass);
         $this->assertEquals($dn, $node->getDnString());
         $this->assertEquals('cn=name', $node->getRdnString());
         $this->assertEquals('name', $node->cn[0]);
@@ -387,11 +387,11 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetChangedData()
     {
-        $node=$this->_createTestNode();
-        $node->host=array('d');
-        $node->empty='not Empty';
+        $node        = $this->_createTestNode();
+        $node->host  = array('d');
+        $node->empty = 'not Empty';
         unset($node->objectClass);
-        $changedData=$node->getChangedData();
+        $changedData = $node->getChangedData();
         $this->assertEquals(array('d'), $changedData['host']);
         $this->assertEquals(array('not Empty'), $changedData['empty']);
         $this->assertEquals(array(), $changedData['objectclass']);
@@ -399,18 +399,18 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testDeleteUnusedAttribute()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
         $node->deleteAttribute('nonexistant');
-        $changedData=$node->getChangedData();
+        $changedData = $node->getChangedData();
         $this->assertArrayNotHasKey('nonexistant', $changedData);
     }
 
     public function testRenameNodeString()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
 
-        $newDnString='cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org';
+        $newDnString = 'cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org';
         $node->setDn($newDnString);
         $this->assertEquals($data['dn'], $node->getCurrentDn()->toString());
         $this->assertEquals($newDnString, $node->getDn()->toString());
@@ -425,10 +425,10 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testRenameNodeArray()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
 
-        $newDnArray=array(
+        $newDnArray = array(
             array('uid' => 'tester'),
             array('dc' => 'example'),
             array('dc' => 'org'));
@@ -441,10 +441,10 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testRenameNodeDnObject()
     {
-        $data=$this->_createTestArrayData();
-        $node=Zend_Ldap_Node::fromArray($data);
+        $data = $this->_createTestArrayData();
+        $node = Zend_Ldap_Node::fromArray($data);
 
-        $newDn=Zend_Ldap_Dn::fromString('cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org');
+        $newDn = Zend_Ldap_Dn::fromString('cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org');
         $node->setDn($newDn);
         $this->assertEquals($data['dn'], $node->getCurrentDn()->toString());
         $this->assertEquals($newDn, $node->getDn());
@@ -455,8 +455,8 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testRenameNodeFromDataSource()
     {
-        $node=$this->_createTestNode();
-        $newDnString='cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org';
+        $node        = $this->_createTestNode();
+        $newDnString = 'cn=test+ou=Lab+uid=tester,cn=name,dc=example,dc=org';
         $node->rename($newDnString);
 
         $this->assertFalse($node->willBeDeleted());
@@ -466,19 +466,19 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testDnObjectCloning()
     {
-        $node1=$this->_createTestNode();
-        $dn1=Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
+        $node1 = $this->_createTestNode();
+        $dn1   = Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
         $node1->setDn($dn1);
         $dn1->prepend(array('cn' => 'name'));
         $this->assertNotEquals($dn1->toString(), $node1->getDn()->toString());
 
-        $dn2=Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
-        $node2=Zend_Ldap_Node::create($dn2);
+        $dn2   = Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
+        $node2 = Zend_Ldap_Node::create($dn2);
         $dn2->prepend(array('cn' => 'name'));
         $this->assertNotEquals($dn2->toString(), $node2->getDn()->toString());
 
-        $dn3=Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
-        $node3=Zend_Ldap_Node::fromArray(array(
+        $dn3   = Zend_Ldap_Dn::fromString('cn=name2,dc=example,dc=org');
+        $node3 = Zend_Ldap_Node::fromArray(array(
             'dn' => $dn3,
             'ou' => 'Test'), false);
         $dn3->prepend(array('cn' => 'name'));
@@ -487,16 +487,16 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testGetChanges()
     {
-        $node=$this->_createTestNode();
-        $node->host=array('d');
-        $node->empty='not Empty';
+        $node        = $this->_createTestNode();
+        $node->host  = array('d');
+        $node->empty = 'not Empty';
         unset($node->boolean);
-        $changes=$node->getChanges();
+        $changes = $node->getChanges();
         $this->assertEquals(array(
-            'add'     => array(
+            'add' => array(
                 'empty' => array('not Empty')
             ),
-            'delete'  => array(
+            'delete' => array(
                 'boolean' => array()
             ),
             'replace' => array(
@@ -504,24 +504,24 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
             )
         ), $changes);
 
-        $node=Zend_Ldap_Node::create('uid=test,dc=example,dc=org', array('account'));
-        $node->host='host';
+        $node       = Zend_Ldap_Node::create('uid=test,dc=example,dc=org', array('account'));
+        $node->host = 'host';
         unset($node->cn);
         unset($node['sn']);
-        $node['givenName']='givenName';
+        $node['givenName'] = 'givenName';
         $node->appendToAttribute('objectClass', 'domain');
         $this->assertEquals(array(
-            'uid' => array('test'),
+            'uid'         => array('test'),
             'objectclass' => array('account', 'domain'),
-            'host' => array('host'),
-            'givenname' => array('givenName')
+            'host'        => array('host'),
+            'givenname'   => array('givenName')
         ), $node->getChangedData());
         $this->assertEquals(array(
-            'add'     => array(
-                'uid' => array('test'),
+            'add' => array(
+                'uid'         => array('test'),
                 'objectclass' => array('account', 'domain'),
-                'host' => array('host'),
-                'givenname' => array('givenName'),
+                'host'        => array('host'),
+                'givenname'   => array('givenName'),
             ),
             'delete'  => array(),
             'replace' => array()
@@ -530,7 +530,7 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testHasValue()
     {
-        $node=$this->_createTestNode();
+        $node = $this->_createTestNode();
 
         $this->assertTrue($node->attributeHasValue('cn', 'name'));
         $this->assertFalse($node->attributeHasValue('cn', 'noname'));
@@ -545,22 +545,22 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testRemoveDuplicates()
     {
-        $node=$this->_createTestNode();
-        $node->strings1= array('value1', 'value2', 'value2', 'value3');
-        $node->strings2= array('value1', 'value2', 'value3', 'value4');
-        $node->boolean1= array(true, true, true, true);
-        $node->boolean2= array(true, false, true, false);
+        $node           = $this->_createTestNode();
+        $node->strings1 = array('value1', 'value2', 'value2', 'value3');
+        $node->strings2 = array('value1', 'value2', 'value3', 'value4');
+        $node->boolean1 = array(true, true, true, true);
+        $node->boolean2 = array(true, false, true, false);
 
-        $expected=array(
+        $expected = array(
             'cn'          => array('name'),
             'host'        => array('a', 'b', 'c'),
             'empty'       => array(),
             'boolean'     => array('TRUE', 'FALSE'),
             'objectclass' => array('account', 'top'),
-            'strings1' => array('value1', 'value2', 'value3'),
-            'strings2' => array('value1', 'value2', 'value3', 'value4'),
-            'boolean1' => array('TRUE'),
-            'boolean2' => array('TRUE', 'FALSE'),
+            'strings1'    => array('value1', 'value2', 'value3'),
+            'strings2'    => array('value1', 'value2', 'value3', 'value4'),
+            'boolean1'    => array('TRUE'),
+            'boolean2'    => array('TRUE', 'FALSE'),
         );
 
         $node->removeDuplicatesFromAttribute('strings1');
@@ -572,32 +572,32 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
 
     public function testRemoveFromAttributeSimple()
     {
-        $node=$this->_createTestNode();
-        $node->test=array('value1', 'value2', 'value3', 'value3');
+        $node       = $this->_createTestNode();
+        $node->test = array('value1', 'value2', 'value3', 'value3');
         $node->removeFromAttribute('test', 'value2');
         $this->assertEquals(array('value1', 'value3', 'value3'), $node->test);
     }
 
     public function testRemoveFromAttributeArray()
     {
-        $node=$this->_createTestNode();
-        $node->test=array('value1', 'value2', 'value3', 'value3');
+        $node       = $this->_createTestNode();
+        $node->test = array('value1', 'value2', 'value3', 'value3');
         $node->removeFromAttribute('test', array('value1', 'value2'));
         $this->assertEquals(array('value3', 'value3'), $node->test);
     }
 
     public function testRemoveFromAttributeMultipleSimple()
     {
-        $node=$this->_createTestNode();
-        $node->test=array('value1', 'value2', 'value3', 'value3');
+        $node       = $this->_createTestNode();
+        $node->test = array('value1', 'value2', 'value3', 'value3');
         $node->removeFromAttribute('test', 'value3');
         $this->assertEquals(array('value1', 'value2'), $node->test);
     }
 
     public function testRemoveFromAttributeMultipleArray()
     {
-        $node=$this->_createTestNode();
-        $node->test=array('value1', 'value2', 'value3', 'value3');
+        $node       = $this->_createTestNode();
+        $node->test = array('value1', 'value2', 'value3', 'value3');
         $node->removeFromAttribute('test', array('value1', 'value3'));
         $this->assertEquals(array('value2'), $node->test);
     }
@@ -608,63 +608,63 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     public function testRdnAttributesHandleMultiValuedAttribute()
     {
         $data = array(
-        	'dn' => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
-        	'objectClass' => array(
-        		'groupOfNames',
-        		'top',
-        	),
-        	'cn' => array(
-        		'The Funkygroup',
-        		'funkygroup',
-        	),
-        	'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
+            'dn'          => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
+            'objectClass' => array(
+                'groupOfNames',
+                'top',
+            ),
+            'cn' => array(
+                'The Funkygroup',
+                'funkygroup',
+            ),
+            'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
         );
 
-        $node = Zend_Ldap_Node::fromArray($data, true);
+        $node        = Zend_Ldap_Node::fromArray($data, true);
         $changedData = $node->getChangedData();
         $this->assertEmpty($changedData);
     }
 
-	/**
+    /**
      * ZF-11611
      */
     public function testRdnAttributesHandleMultiValuedAttribute2()
     {
         $data = array(
-        	'dn' => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
-        	'objectClass' => array(
-        		'groupOfNames',
-        		'top',
-        	),
-        	'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
+            'dn'          => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
+            'objectClass' => array(
+                'groupOfNames',
+                'top',
+            ),
+            'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
         );
 
         $node = Zend_Ldap_Node::fromArray($data, true);
-        $cn = $node->getAttribute('cn');
+        $cn   = $node->getAttribute('cn');
         $this->assertEquals(array(
             0 => 'funkygroup'
         ), $cn);
     }
 
-	/**
+    /**
      * ZF-11611
      */
     public function testRdnAttributesHandleMultiValuedAttribute3()
     {
         $data = array(
-        	'dn' => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
-        	'objectClass' => array(
-        		'groupOfNames',
-        		'top',
-        	),
-        	'cn' => array(
-        	    0 => 'The Funkygroup'
-        	),
-        	'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
+            'dn'          => 'cn=funkygroup,ou=Groupes,dc=domain,dc=local',
+            'objectClass' => array(
+                'groupOfNames',
+                'top',
+            ),
+            'cn' => array(
+                0 => 'The Funkygroup'
+            ),
+            'member' => 'uid=john-doe,ou=Users,dc=domain,dc=local',
         );
 
         $node = Zend_Ldap_Node::fromArray($data, true);
-        $cn = $node->getAttribute('cn');
+        $cn   = $node->getAttribute('cn');
         $this->assertEquals(array(
            0 => 'The Funkygroup',
            1 => 'funkygroup',

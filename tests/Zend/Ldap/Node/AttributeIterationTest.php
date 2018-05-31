@@ -38,14 +38,14 @@ class Zend_Ldap_Node_AttributeIterationTest extends Zend_Ldap_TestCase
 {
     public function testSimpleIteration()
     {
-        $node=$this->_createTestNode();
-        $i=0;
-        $data=array();
+        $node = $this->_createTestNode();
+        $i    = 0;
+        $data = array();
         foreach ($node->getAttributes() as $k => $v) {
             $this->assertNotNull($k);
             $this->assertNotNull($v);
             $this->assertEquals($node->$k, $v);
-            $data[$k]=$v;
+            $data[$k] = $v;
             $i++;
         }
         $this->assertEquals(5, $i);

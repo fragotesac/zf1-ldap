@@ -140,10 +140,9 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $this->_attributeTypes = array();
         foreach ($this->getAttribute('attributeTypes') as $value) {
-            $val = $this->_parseAttributeType($value);
-            $val = new Zend_Ldap_Node_Schema_AttributeType_OpenLdap($val);
+            $val                                    = $this->_parseAttributeType($value);
+            $val                                    = new Zend_Ldap_Node_Schema_AttributeType_OpenLdap($val);
             $this->_attributeTypes[$val->getName()] = $val;
-
         }
         foreach ($this->_attributeTypes as $val) {
             if (count($val->sup) > 0) {
@@ -182,14 +181,14 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             '_string'              => $value,
             '_parents'             => array());
 
-        $tokens = $this->_tokenizeString($value);
+        $tokens               = $this->_tokenizeString($value);
         $attributeType['oid'] = array_shift($tokens); // first token is the oid
         $this->_parseLdapSchemaSyntax($attributeType, $tokens);
 
         if (array_key_exists('syntax', $attributeType)) {
             // get max length from syntax
             if (preg_match('/^(.+){(\d+)}$/', $attributeType['syntax'], $matches)) {
-                $attributeType['syntax'] = $matches[1];
+                $attributeType['syntax']     = $matches[1];
                 $attributeType['max-length'] = $matches[2];
             }
         }
@@ -208,8 +207,8 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $this->_objectClasses = array();
         foreach ($this->getAttribute('objectClasses') as $value) {
-            $val = $this->_parseObjectClass($value);
-            $val = new Zend_Ldap_Node_Schema_ObjectClass_OpenLdap($val);
+            $val                                   = $this->_parseObjectClass($value);
+            $val                                   = new Zend_Ldap_Node_Schema_ObjectClass_OpenLdap($val);
             $this->_objectClasses[$val->getName()] = $val;
         }
         foreach ($this->_objectClasses as $val) {
@@ -245,7 +244,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             '_string'    => $value,
             '_parents'   => array());
 
-        $tokens = $this->_tokenizeString($value);
+        $tokens             = $this->_tokenizeString($value);
         $objectClass['oid'] = array_shift($tokens); // first token is the oid
         $this->_parseLdapSchemaSyntax($objectClass, $tokens);
 
@@ -262,15 +261,19 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
      */
     protected function _resolveInheritance(Zend_Ldap_Node_Schema_Item $node, array $repository)
     {
-        $data = $node->getData();
+        $data    = $node->getData();
         $parents = $data['sup'];
-        if ($parents === null || !is_array($parents) || count($parents) < 1) return;
+        if ($parents === null || !is_array($parents) || count($parents) < 1) {
+            return;
+        }
         foreach ($parents as $parent) {
-            if (!array_key_exists($parent, $repository)) continue;
+            if (!array_key_exists($parent, $repository)) {
+                continue;
+            }
             if (!array_key_exists('_parents', $data) || !is_array($data['_parents'])) {
-               $data['_parents'] = array();
-           }
-           $data['_parents'][] = $repository[$parent];
+                $data['_parents'] = array();
+            }
+            $data['_parents'][] = $repository[$parent];
         }
         $node->setData($data);
     }
@@ -284,7 +287,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $this->_ldapSyntaxes = array();
         foreach ($this->getAttribute('ldapSyntaxes') as $value) {
-            $val = $this->_parseLdapSyntax($value);
+            $val                              = $this->_parseLdapSyntax($value);
             $this->_ldapSyntaxes[$val['oid']] = $val;
         }
         ksort($this->_ldapSyntaxes, SORT_STRING);
@@ -299,11 +302,11 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     protected function _parseLdapSyntax($value)
     {
         $ldapSyntax = array(
-            'oid'      => null,
-            'desc'     => null,
+            'oid'     => null,
+            'desc'    => null,
             '_string' => $value);
 
-        $tokens = $this->_tokenizeString($value);
+        $tokens            = $this->_tokenizeString($value);
         $ldapSyntax['oid'] = array_shift($tokens); // first token is the oid
         $this->_parseLdapSchemaSyntax($ldapSyntax, $tokens);
 
@@ -319,7 +322,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $this->_matchingRules = array();
         foreach ($this->getAttribute('matchingRules') as $value) {
-            $val = $this->_parseMatchingRule($value);
+            $val                                = $this->_parseMatchingRule($value);
             $this->_matchingRules[$val['name']] = $val;
         }
         ksort($this->_matchingRules, SORT_STRING);
@@ -341,7 +344,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             'syntax'   => null,
             '_string'  => $value);
 
-        $tokens = $this->_tokenizeString($value);
+        $tokens              = $this->_tokenizeString($value);
         $matchingRule['oid'] = array_shift($tokens); // first token is the oid
         $this->_parseLdapSchemaSyntax($matchingRule, $tokens);
 
@@ -359,7 +362,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     {
         $this->_matchingRuleUse = array();
         foreach ($this->getAttribute('matchingRuleUse') as $value) {
-            $val = $this->_parseMatchingRuleUse($value);
+            $val                                  = $this->_parseMatchingRuleUse($value);
             $this->_matchingRuleUse[$val['name']] = $val;
         }
         ksort($this->_matchingRuleUse, SORT_STRING);
@@ -381,7 +384,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
             'applies'  => array(),
             '_string'  => $value);
 
-        $tokens = $this->_tokenizeString($value);
+        $tokens                 = $this->_tokenizeString($value);
         $matchingRuleUse['oid'] = array_shift($tokens); // first token is the oid
         $this->_parseLdapSchemaSyntax($matchingRuleUse, $tokens);
 
@@ -403,8 +406,8 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
         }
         if (is_array($data['name'])) {
             // make one name the default and put the other ones into aliases
-            $aliases = $data['name'];
-            $data['name'] = array_shift($aliases);
+            $aliases         = $data['name'];
+            $data['name']    = array_shift($aliases);
             $data['aliases'] = $aliases;
         } else {
             $data['aliases'] = array();
@@ -443,7 +446,9 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
                     // until the end of the list is reached ')'
                     $data[$token] = array();
                     while ($tmp = array_shift($tokens)) {
-                        if ($tmp == ')') break;
+                        if ($tmp == ')') {
+                            break;
+                        }
                         if ($tmp != '$') {
                             $data[$token][] = Zend_Ldap_Attribute::convertFromLdapValue($tmp);
                         }
@@ -467,7 +472,7 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
     */
     protected function _tokenizeString($value)
     {
-        $tokens = array();
+        $tokens  = array();
         $matches = array();
         // this one is taken from PEAR::Net_LDAP2
         $pattern = "/\s* (?:([()]) | ([^'\s()]+) | '((?:[^']+|'[^\s)])*)') \s*/x";
@@ -482,8 +487,12 @@ class Zend_Ldap_Node_Schema_OpenLdap extends Zend_Ldap_Node_Schema
                 }
             }
         }
-        if ($tokens[0] == '(') array_shift($tokens);
-        if ($tokens[count($tokens) - 1] == ')') array_pop($tokens);
+        if ($tokens[0] == '(') {
+            array_shift($tokens);
+        }
+        if ($tokens[count($tokens) - 1] == ')') {
+            array_pop($tokens);
+        }
         return $tokens;
     }
 }
