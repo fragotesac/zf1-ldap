@@ -53,7 +53,7 @@ class Zend_Ldap_Node_ChildrenTest extends Zend_Ldap_OnlineTestCase
         $node     = $this->_getLdap()->getBaseNode();
         $children = $node->getChildren();
         $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
-        $this->assertEquals(6, count($children));
+        $this->assertCount(6, $children);
         $this->assertTrue($children['ou=Node'] instanceof Zend_Ldap_Node);
     }
 
@@ -63,14 +63,14 @@ class Zend_Ldap_Node_ChildrenTest extends Zend_Ldap_OnlineTestCase
         $node->detachLdap();
         $children = $node->getChildren();
         $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
-        $this->assertEquals(0, count($children));
+        $this->assertCount(0, $children);
 
         $node->attachLdap($this->_getLdap());
         $node->reload();
         $children = $node->getChildren();
 
         $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
-        $this->assertEquals(6, count($children));
+        $this->assertCount(6, $children);
         $this->assertTrue($children['ou=Node'] instanceof Zend_Ldap_Node);
     }
 
@@ -141,20 +141,20 @@ class Zend_Ldap_Node_ChildrenTest extends Zend_Ldap_OnlineTestCase
 
         $children = $node->getChildren();
         $this->assertTrue($node->hasChildren());
-        $this->assertEquals(2, count($children));
+        $this->assertCount(2, $children);
 
         $string = serialize($node);
         $node2  = unserialize($string);
 
         $children2 = $node2->getChildren();
         $this->assertTrue($node2->hasChildren());
-        $this->assertEquals(2, count($children2));
+        $this->assertCount(2, $children2);
 
         $node2->attachLdap($this->_getLdap());
 
         $children2 = $node2->getChildren();
         $this->assertTrue($node2->hasChildren());
-        $this->assertEquals(2, count($children2));
+        $this->assertCount(2, $children2);
 
         $node = $this->_getLdap()->getNode($this->_createDn('ou=Node,'));
         $this->assertTrue($node->hasChildren());

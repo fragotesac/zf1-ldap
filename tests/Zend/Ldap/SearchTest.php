@@ -54,7 +54,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
         $this->assertEquals($dn, $entry['dn']);
         $this->assertArrayHasKey('ou', $entry);
         $this->assertContains('Test1', $entry['ou']);
-        $this->assertEquals(1, count($entry['ou']));
+        $this->assertCount(1, $entry['ou']);
     }
 
     public function testGetSingleIllegalEntry()
@@ -109,7 +109,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
             Zend_Ldap::SEARCH_SCOPE_SUB
         );
         $this->assertEquals(9, $items->count());
-        $this->assertEquals(9, count($items));
+        $this->assertCount(9, $items);
 
         $i = 0;
         foreach ($items as $key => $item) {
@@ -142,7 +142,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
             Zend_Ldap::SEARCH_SCOPE_SUB
         );
         $this->assertInternalType('array', $entries);
-        $this->assertEquals(9, count($entries));
+        $this->assertCount(9, $entries);
     }
 
     /**
@@ -249,7 +249,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
 
         $entries = $this->_getLdap()->searchEntries($filter, $dn, Zend_Ldap::SEARCH_SCOPE_SUB);
         $this->assertInternalType('array', $entries);
-        $this->assertEquals(9, count($entries));
+        $this->assertCount(9, $entries);
     }
 
     public function testGetSingleEntryWithDnObject()
@@ -378,7 +378,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
             'baseDn' => TESTS_ZEND_LDAP_WRITEABLE_SUBTREE,
             'scope'  => Zend_Ldap::SEARCH_SCOPE_SUB
         ));
-        $this->assertEquals(9, count($items));
+        $this->assertCount(9, $items);
     }
 
     /**
@@ -445,7 +445,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
             'uid'
         );
         $entries = $entries->toArray();
-        $this->assertEquals(0, count($entries));
+        $this->assertCount(0, $entries);
         $i = 0;
         foreach ($entries as $key => $item) {
             $i++;

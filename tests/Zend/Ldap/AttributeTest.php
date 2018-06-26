@@ -73,7 +73,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         $this->assertNull($value);
         $array = Zend_Ldap_Attribute::getAttribute($data, 'uid2');
         $this->assertInternalType('array', $array);
-        $this->assertEquals(0, count($array));
+        $this->assertCount(0, $array);
     }
 
     public function testGetAttributeWithWrongIndexType()
@@ -90,7 +90,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         $data  = array('uid' => array('value'));
         $value = Zend_Ldap_Attribute::getAttribute($data, 'uid');
         $this->assertInternalType('array', $value);
-        $this->assertEquals(1, count($value));
+        $this->assertCount(1, $value);
         $this->assertContains('value', $value);
     }
 
@@ -100,7 +100,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', 'new', false);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(1, count($data['uid']));
+        $this->assertCount(1, $data['uid']);
         $this->assertContains('new', $data['uid']);
     }
 
@@ -110,7 +110,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', 'new', false);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(1, count($data['uid']));
+        $this->assertCount(1, $data['uid']);
         $this->assertContains('new', $data['uid']);
     }
 
@@ -120,7 +120,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', 'new', true);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(2, count($data['uid']));
+        $this->assertCount(2, $data['uid']);
         $this->assertContains('old', $data['uid']);
         $this->assertContains('new', $data['uid']);
         $this->assertEquals('old', $data['uid'][0]);
@@ -147,7 +147,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', array('new1', 'new2'), false);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(2, count($data['uid']));
+        $this->assertCount(2, $data['uid']);
         $this->assertContains('new1', $data['uid']);
         $this->assertContains('new2', $data['uid']);
         $this->assertEquals('new1', $data['uid'][0]);
@@ -160,7 +160,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', array('new1', 'new2'), false);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(2, count($data['uid']));
+        $this->assertCount(2, $data['uid']);
         $this->assertContains('new1', $data['uid']);
         $this->assertContains('new2', $data['uid']);
         $this->assertEquals('new1', $data['uid'][0]);
@@ -173,7 +173,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::setAttribute($data, 'uid', array('new1', 'new2'), true);
         $this->assertArrayHasKey('uid', $data);
         $this->assertInternalType('array', $data['uid']);
-        $this->assertEquals(3, count($data['uid']));
+        $this->assertCount(3, $data['uid']);
         $this->assertContains('old', $data['uid']);
         $this->assertContains('new1', $data['uid']);
         $this->assertContains('new2', $data['uid']);
@@ -271,7 +271,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         $ts   = 'dummy';
         $data = array();
         Zend_Ldap_Attribute::setDateTimeAttribute($data, 'ts', $ts, false);
-        $this->assertEquals(0, count($data['ts']));
+        $this->assertCount(0, $data['ts']);
     }
 
     public function testGetDateTimeValueFromLocal()
@@ -337,7 +337,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', 'value2');
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(3, count($data['test']));
+        $this->assertCount(3, $data['test']);
         $this->assertContains('value1', $data['test']);
         $this->assertContains('value3', $data['test']);
         $this->assertNotContains('value2', $data['test']);
@@ -349,7 +349,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', array('value1', 'value2'));
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(2, count($data['test']));
+        $this->assertCount(2, $data['test']);
         $this->assertContains('value3', $data['test']);
         $this->assertNotContains('value1', $data['test']);
         $this->assertNotContains('value2', $data['test']);
@@ -361,7 +361,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', 'value3');
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(2, count($data['test']));
+        $this->assertCount(2, $data['test']);
         $this->assertContains('value1', $data['test']);
         $this->assertContains('value2', $data['test']);
         $this->assertNotContains('value3', $data['test']);
@@ -373,7 +373,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', array('value1', 'value3'));
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(1, count($data['test']));
+        $this->assertCount(1, $data['test']);
         $this->assertContains('value2', $data['test']);
         $this->assertNotContains('value1', $data['test']);
         $this->assertNotContains('value3', $data['test']);
@@ -385,7 +385,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', false);
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(2, count($data['test']));
+        $this->assertCount(2, $data['test']);
         $this->assertContains('TRUE', $data['test']);
         $this->assertNotContains('FALSE', $data['test']);
     }
@@ -396,7 +396,7 @@ class Zend_Ldap_AttributeTest extends PHPUnit\Framework\TestCase
         Zend_Ldap_Attribute::removeFromAttribute($data, 'test', array(2, 4));
         $this->assertArrayHasKey('test', $data);
         $this->assertInternalType('array', $data['test']);
-        $this->assertEquals(2, count($data['test']));
+        $this->assertCount(2, $data['test']);
         $this->assertContains('1', $data['test']);
         $this->assertContains('3', $data['test']);
         $this->assertNotContains('2', $data['test']);
