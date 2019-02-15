@@ -58,7 +58,7 @@ class Zend_Ldap_Node_Schema_ActiveDirectory extends Zend_Ldap_Node_Schema
         foreach ($ldap->search(
             '(objectClass=classSchema)',
             $dn,
-                Zend_Ldap::SEARCH_SCOPE_ONE
+            Zend_Ldap::SEARCH_SCOPE_ONE
         ) as $node) {
             $val                                   = new Zend_Ldap_Node_Schema_ObjectClass_ActiveDirectory($node);
             $this->_objectClasses[$val->getName()] = $val;
@@ -66,7 +66,7 @@ class Zend_Ldap_Node_Schema_ActiveDirectory extends Zend_Ldap_Node_Schema
         foreach ($ldap->search(
             '(objectClass=attributeSchema)',
             $dn,
-                Zend_Ldap::SEARCH_SCOPE_ONE
+            Zend_Ldap::SEARCH_SCOPE_ONE
         ) as $node) {
             $val                                    = new Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory($node);
             $this->_attributeTypes[$val->getName()] = $val;
