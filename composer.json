@@ -9,7 +9,6 @@
     "homepage": "http://framework.zend.com/",
     "license": "BSD-3-Clause",
     "require": {
-        "ext-ldap": "*",
         "php": ">=7.0.0",
         "diablomedia/zendframework1-exception": "^1.0.0",
         "diablomedia/zendframework1-config": "^1.0.0",
@@ -54,6 +53,7 @@
         "style-check": "php-cs-fixer fix --dry-run -vv"
     },
     "suggest": {
+        "ext-ldap": "Required for this component",
         "ext-iconv": "If available (and mbstring is not) will be used for encoding conversion",
         "ext-json": "Required if using toJson conversion on Ldap Node",
         "ext-mbstring": "If available, multibyte functions will be used"
