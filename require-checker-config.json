@@ -5,6 +5,11 @@
     "array", "string", "int", "float", "bool", "iterable", "callable", "void", "object",
     "mb_strtolower", "mb_convert_encoding",
     "iconv",
-    "json_encode"
+    "json_encode",
+    "ldap_get_option", "LDAP_OPT_ERROR_NUMBER", "ldap_error", "ldap_err2str", "LDAP_OPT_ERROR_STRING", "ldap_unbind",
+    "ldap_connect", "ldap_set_option", "LDAP_OPT_PROTOCOL_VERSION", "LDAP_OPT_REFERRALS", "ldap_start_tls", "ldap_bind",
+    "ldap_list", "ldap_read", "ldap_search", "ldap_sort", "ldap_add", "ldap_modify", "ldap_delete", "ldap_first_entry",
+    "ldap_next_entry", "ldap_get_dn", "ldap_free_result", "ldap_rename", "ldap_count_entries", "ldap_first_attribute",
+    "ldap_get_values_len", "ldap_next_attribute"
   ]
 }

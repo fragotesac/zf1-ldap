@@ -57,7 +57,7 @@ jobs:
       env: COMPOSER_ARGS="--ignore-platform-reqs --prefer-lowest"
     - php: nightly
       env: COMPOSER_ARGS="--ignore-platform-reqs"
-      
+
     - stage: style check
       php: 7.2
       env: TMPDIR=/tmp USE_XDEBUG=false
@@ -79,5 +79,7 @@ jobs:
         - composer test-with-coverage
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f ./clover.xml
+        - composer require codacy/coverage
+        - php vendor/bin/codacycoverage clover ./clover.xml
       after_script:
         - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
