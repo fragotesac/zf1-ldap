@@ -46,7 +46,7 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
     /**
      * Gets the attribute OID
      *
-     * @return string
+     * @return void
      */
     public function getOid()
     {
@@ -55,7 +55,7 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
     /**
      * Gets the attribute syntax
      *
-     * @return string
+     * @return void
      */
     public function getSyntax()
     {
@@ -64,7 +64,7 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
     /**
      * Gets the attribute maximum length
      *
-     * @return int|null
+     * @return void
      */
     public function getMaxLength()
     {
@@ -73,7 +73,7 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
     /**
      * Returns if the attribute is single-valued.
      *
-     * @return boolean
+     * @return void
      */
     public function isSingleValued()
     {
@@ -82,7 +82,7 @@ class Zend_Ldap_Node_Schema_AttributeType_ActiveDirectory extends Zend_Ldap_Node
     /**
      * Gets the attribute description
      *
-     * @return string
+     * @return void
      */
     public function getDescription()
     {
