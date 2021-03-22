@@ -42,7 +42,7 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
     protected $_altUsername    = TESTS_ZEND_LDAP_ALT_USERNAME;
     protected $_bindRequiresDn = false;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_LDAP_ONLINE_ENABLED')
                 && constant('TESTS_ZEND_LDAP_ONLINE_ENABLED'))) {
@@ -271,7 +271,7 @@ class Zend_Ldap_BindTest extends PHPUnit\Framework\TestCase
     {
         $ldap = new Zend_Ldap($this->_options);
         $this->assertNotNull($ldap->getResource());
-        $this->assertInternalType('resource', $ldap->getResource());
+        $this->assertIsResource($ldap->getResource());
         $this->assertEquals(TESTS_ZEND_LDAP_USERNAME, $ldap->getBoundUser());
     }
 

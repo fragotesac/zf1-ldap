@@ -352,7 +352,7 @@ class Zend_Ldap_Node_OfflineTest extends Zend_Ldap_TestCase
     public function testAttributeAccessDnGet()
     {
         $node = $this->_createTestNode();
-        $this->assertInternalType('string', $node->dn);
+        $this->assertIsString($node->dn);
         $this->assertEquals($node->getDn()->toString(), $node->dn);
     }
 

@@ -1,3 +1,5 @@
+includes:
+    - phpstan-php8.php
 parameters:
     level: 2
     paths:
@@ -5,9 +7,7 @@ parameters:
     excludes_analyse:
         - %rootDir%/../../../vendor/*
         - %rootDir%/../../../tests/*
-    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
     ignoreErrors:
-        - '#Constructor of class Zend_Ldap_Filter_Mask has an unused parameter \$value\.#'
         - '#Cannot call method getRdnString\(\) on array\.#'
         -
             message: '#Access to an undefined property Zend_Ldap_Node_Schema_AttributeType_OpenLdap::\$sup\.#'
@@ -15,6 +15,12 @@ parameters:
         -
             message: '#Access to an undefined property Zend_Ldap_Node_Schema_AttributeType_OpenLdap::\$aliases\.#'
             path: %currentWorkingDirectory%/src/Zend/Ldap/Node/Schema/OpenLdap.php
+        -
+            message: '#Access to an undefined property Zend_Ldap_Node_Schema_AttributeType_OpenLdap::\$max-length\.#'
+            path: %currentWorkingDirectory%/src/Zend/Ldap/Node/Schema/AttributeType/OpenLdap.php
+        -
+            message: '#Access to an undefined property Zend_Ldap_Node_Schema_AttributeType_OpenLdap::\$single-value\.#'
+            path: %currentWorkingDirectory%/src/Zend/Ldap/Node/Schema/AttributeType/OpenLdap.php
         -
             message: '#Access to an undefined property Zend_Ldap_Node_Schema_ObjectClass_OpenLdap::\$aliases\.#'
             path: %currentWorkingDirectory%/src/Zend/Ldap/Node/Schema/OpenLdap.php

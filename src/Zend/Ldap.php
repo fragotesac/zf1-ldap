@@ -910,6 +910,14 @@ class Zend_Ldap
             throw new Zend_Ldap_Exception($this, 'searching: ' . $filter);
         }
         if ($sort !== null && is_string($sort)) {
+            if (!function_exists('ldap_sort')) {
+                throw new Zend_Ldap_Exception($this, 'ldap_sort was removed in PHP 8, cannot sort');
+            } else {
+                trigger_error(
+                    'ldap_sort is deprecated in PHP 7 and is removed in PHP 8, this will throw an exception in PHP 8',
+                    E_USER_DEPRECATED
+                );
+            }
             $isSorted = @ldap_sort($this->getResource(), $search, $sort);
             if ($isSorted === false) {
                 throw new Zend_Ldap_Exception($this, 'sorting: ' . $sort);

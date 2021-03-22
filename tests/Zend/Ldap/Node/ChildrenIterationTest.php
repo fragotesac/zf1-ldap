@@ -36,13 +36,13 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'OnlineTestCase.
  */
 class Zend_Ldap_Node_ChildrenIterationTest extends Zend_Ldap_OnlineTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_prepareLdapServer();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->_cleanupLdapServer();
         parent::tearDown();

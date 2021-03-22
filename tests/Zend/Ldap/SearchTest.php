@@ -35,13 +35,13 @@ require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'OnlineTestCase.php';
  */
 class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_prepareLdapServer();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->_cleanupLdapServer();
         parent::tearDown();
@@ -141,7 +141,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
             TESTS_ZEND_LDAP_WRITEABLE_SUBTREE,
             Zend_Ldap::SEARCH_SCOPE_SUB
         );
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(9, $entries);
     }
 
@@ -248,7 +248,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
         $filter = Zend_Ldap_Filter::equals('objectClass', 'organizationalUnit');
 
         $entries = $this->_getLdap()->searchEntries($filter, $dn, Zend_Ldap::SEARCH_SCOPE_SUB);
-        $this->assertInternalType('array', $entries);
+        $this->assertIsArray($entries);
         $this->assertCount(9, $entries);
     }
 
@@ -502,7 +502,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
         );
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->getInnerIterator()->key());
         $current = $items->getInnerIterator()->current();
-        $this->assertInternalType('array', $current);
+        $this->assertIsArray($current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
     }
 
@@ -519,7 +519,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
         $this->assertEquals(0, $items->key());
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->dn());
         $current = $items->current();
-        $this->assertInternalType('array', $current);
+        $this->assertIsArray($current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
     }
 
@@ -565,7 +565,7 @@ class Zend_Ldap_SearchTest extends Zend_Ldap_OnlineTestCase
         $this->assertEquals(9, $items->count());
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $items->getInnerIterator()->key());
         $current = $items->current();
-        $this->assertInternalType('array', $current);
+        $this->assertIsArray($current);
         $this->assertEquals(TESTS_ZEND_LDAP_WRITEABLE_SUBTREE, $current['dn']);
 
         $i = 0;

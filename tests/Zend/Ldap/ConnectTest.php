@@ -38,7 +38,7 @@ class Zend_Ldap_ConnectTest extends PHPUnit\Framework\TestCase
 {
     protected $_options = null;
 
-    public function setUp()
+    public function setUp(): void
     {
         if (!(defined('TESTS_ZEND_LDAP_ONLINE_ENABLED')
                 && constant('TESTS_ZEND_LDAP_ONLINE_ENABLED'))) {

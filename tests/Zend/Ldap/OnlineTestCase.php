@@ -53,7 +53,7 @@ abstract class Zend_Ldap_OnlineTestCase extends Zend_Ldap_TestCase
         return $this->_ldap;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!TESTS_ZEND_LDAP_ONLINE_ENABLED) {
             $this->markTestSkipped('Test skipped due to test configuration');
@@ -92,7 +92,7 @@ abstract class Zend_Ldap_OnlineTestCase extends Zend_Ldap_TestCase
         $this->_ldap->bind();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ($this->_ldap !== null) {
             $this->_ldap->disconnect();

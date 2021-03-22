@@ -36,7 +36,7 @@ require_once dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'OnlineTestCase.
  */
 class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!(defined('TESTS_ZEND_LDAP_ONLINE_ENABLED')
                 && constant('TESTS_ZEND_LDAP_ONLINE_ENABLED'))) {
@@ -48,7 +48,7 @@ class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
         $this->_prepareLdapServer();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->_cleanupLdapServer();
         parent::tearDown();

@@ -41,7 +41,7 @@ class Zend_Ldap_Node_SchemaTest extends Zend_Ldap_OnlineTestCase
      */
     private $_schema;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->_schema = $this->_getLdap()->getSchema();
@@ -62,8 +62,8 @@ class Zend_Ldap_Node_SchemaTest extends Zend_Ldap_OnlineTestCase
 
     public function testGetters()
     {
-        $this->assertInternalType('array', $this->_schema->getAttributeTypes());
-        $this->assertInternalType('array', $this->_schema->getObjectClasses());
+        $this->assertIsArray($this->_schema->getAttributeTypes());
+        $this->assertIsArray($this->_schema->getObjectClasses());
 
         switch ($this->_getLdap()->getRootDse()->getServerType()) {
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_ACTIVEDIRECTORY:
@@ -71,9 +71,9 @@ class Zend_Ldap_Node_SchemaTest extends Zend_Ldap_OnlineTestCase
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_EDIRECTORY:
                 break;
             case Zend_Ldap_Node_RootDse::SERVER_TYPE_OPENLDAP:
-                $this->assertInternalType('array', $this->_schema->getLdapSyntaxes());
-                $this->assertInternalType('array', $this->_schema->getMatchingRules());
-                $this->assertInternalType('array', $this->_schema->getMatchingRuleUse());
+                $this->assertIsArray($this->_schema->getLdapSyntaxes());
+                $this->assertIsArray($this->_schema->getMatchingRules());
+                $this->assertIsArray($this->_schema->getMatchingRuleUse());
                 break;
         }
     }
