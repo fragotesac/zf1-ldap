@@ -9,7 +9,7 @@
     "homepage": "http://framework.zend.com/",
     "license": "BSD-3-Clause",
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
         "diablomedia/zendframework1-exception": "^1.0.0",
         "diablomedia/zendframework1-config": "^1.0.0 || ^2.0.0",
         "diablomedia/zendframework1-crypt": "^1.0.0",
@@ -30,8 +30,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.10",
-        "phpstan/phpstan": "1.8.0",
-        "friendsofphp/php-cs-fixer": "3.6.0",
+        "phpstan/phpstan": "1.10.13",
+        "friendsofphp/php-cs-fixer": "3.16.0",
         "maglnet/composer-require-checker": "^3.0.0",
         "phpro/grumphp-shim": "^1.5.0"
     },
@@ -51,5 +51,10 @@
         "ext-iconv": "If available (and mbstring is not) will be used for encoding conversion",
         "ext-json": "Required if using toJson conversion on Ldap Node",
         "ext-mbstring": "If available, multibyte functions will be used"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true
+        }
     }
 }

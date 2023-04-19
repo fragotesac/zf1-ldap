@@ -58,7 +58,7 @@ class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
     {
         $dn   = $this->_createDn('ou=Test1,');
         $node = Zend_Ldap_Node::fromLdap($dn, $this->_getLdap());
-        $this->assertTrue($node instanceof Zend_Ldap_Node);
+        $this->assertInstanceOf(Zend_Ldap_Node::class, $node);
         $this->assertTrue($node->isAttached());
     }
 
@@ -113,7 +113,7 @@ class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
     {
         $dn   = $this->_createDn('ou=Test1,');
         $node = Zend_Ldap_Node::fromLdap($dn, $this->_getLdap());
-        $this->assertTrue($node instanceof Zend_Ldap_Node);
+        $this->assertInstanceOf(Zend_Ldap_Node::class, $node);
         $this->assertTrue($node->isAttached());
         $node->detachLdap();
         $this->assertFalse($node->isAttached());
@@ -227,7 +227,7 @@ class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
             array(),
             'ou'
         );
-        $this->assertTrue($items instanceof Zend_Ldap_Node_Collection);
+        $this->assertInstanceOf(Zend_Ldap_Node_Collection::class, $items);
         $this->assertEquals(3, $items->count());
 
         $i   = 0;
@@ -299,7 +299,7 @@ class Zend_Ldap_Node_OnlineTest extends Zend_Ldap_OnlineTestCase
     {
         $dn   = Zend_Ldap_Dn::fromString($this->_createDn('ou=Test1,'));
         $node = Zend_Ldap_Node::fromLdap($dn, $this->_getLdap());
-        $this->assertTrue($node instanceof Zend_Ldap_Node);
+        $this->assertInstanceOf(Zend_Ldap_Node::class, $node);
         $this->assertTrue($node->isAttached());
     }
 }

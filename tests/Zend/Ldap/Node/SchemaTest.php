@@ -125,7 +125,7 @@ class Zend_Ldap_Node_SchemaTest extends Zend_Ldap_OnlineTestCase
 
         $this->assertArrayHasKey('organizationalUnit', $objectClasses);
         $ou = $objectClasses['organizationalUnit'];
-        $this->assertTrue($ou instanceof Zend_Ldap_Node_Schema_ObjectClass_OpenLdap);
+        $this->assertInstanceOf(Zend_Ldap_Node_Schema_ObjectClass_OpenLdap::class, $ou);
         $this->assertEquals('organizationalUnit', $ou->getName());
         $this->assertEquals('2.5.6.5', $ou->getOid());
         $this->assertEquals(array('objectClass', 'ou'), $ou->getMustContain());
@@ -166,7 +166,7 @@ class Zend_Ldap_Node_SchemaTest extends Zend_Ldap_OnlineTestCase
 
         $this->assertArrayHasKey('ou', $attributeTypes);
         $ou = $attributeTypes['ou'];
-        $this->assertTrue($ou instanceof Zend_Ldap_Node_Schema_AttributeType_OpenLdap);
+        $this->assertInstanceOf(Zend_Ldap_Node_Schema_AttributeType_OpenLdap::class, $ou);
         $this->assertEquals('ou', $ou->getName());
         $this->assertEquals('2.5.4.11', $ou->getOid());
         $this->assertEquals('1.3.6.1.4.1.1466.115.121.1.15', $ou->getSyntax());

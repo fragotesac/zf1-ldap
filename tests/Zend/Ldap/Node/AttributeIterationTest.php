@@ -49,7 +49,7 @@ class Zend_Ldap_Node_AttributeIterationTest extends Zend_Ldap_TestCase
             $i++;
         }
         $this->assertEquals(5, $i);
-        $this->assertEquals($i, count($node));
+        $this->assertCount($i, $node);
         $this->assertEquals(array(
             'boolean'     => array(true, false),
             'cn'          => array('name'),

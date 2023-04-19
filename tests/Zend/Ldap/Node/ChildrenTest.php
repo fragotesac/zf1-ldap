@@ -52,7 +52,7 @@ class Zend_Ldap_Node_ChildrenTest extends Zend_Ldap_OnlineTestCase
     {
         $node     = $this->_getLdap()->getBaseNode();
         $children = $node->getChildren();
-        $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
+        $this->assertInstanceOf(Zend_Ldap_Node_ChildrenIterator::class, $children);
         $this->assertCount(6, $children);
         $this->assertTrue($children['ou=Node'] instanceof Zend_Ldap_Node);
     }
@@ -62,14 +62,14 @@ class Zend_Ldap_Node_ChildrenTest extends Zend_Ldap_OnlineTestCase
         $node = $this->_getLdap()->getBaseNode();
         $node->detachLdap();
         $children = $node->getChildren();
-        $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
+        $this->assertInstanceOf(Zend_Ldap_Node_ChildrenIterator::class, $children);
         $this->assertCount(0, $children);
 
         $node->attachLdap($this->_getLdap());
         $node->reload();
         $children = $node->getChildren();
 
-        $this->assertTrue($children instanceof Zend_Ldap_Node_ChildrenIterator);
+        $this->assertInstanceOf(Zend_Ldap_Node_ChildrenIterator::class, $children);
         $this->assertCount(6, $children);
         $this->assertTrue($children['ou=Node'] instanceof Zend_Ldap_Node);
     }

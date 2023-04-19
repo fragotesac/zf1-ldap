@@ -1292,8 +1292,8 @@ class Zend_Ldap
         $children = array();
         $search   = @ldap_list($this->getResource(), $parentDn, '(objectClass=*)', array('dn'));
         for ($entry = @ldap_first_entry($this->getResource(), $search);
-                $entry !== false;
-                $entry = @ldap_next_entry($this->getResource(), $entry)) {
+            $entry !== false;
+            $entry = @ldap_next_entry($this->getResource(), $entry)) {
             $childDn = @ldap_get_dn($this->getResource(), $entry);
             if ($childDn === false) {
                 throw new Zend_Ldap_Exception($this, 'getting dn');
