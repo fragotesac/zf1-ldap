@@ -11,10 +11,10 @@
     "prefer-stable": true,
     "require": {
         "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
-        "diablomedia/zendframework1-exception": "^1.1.1",
-        "diablomedia/zendframework1-config": "^2.0.5",
-        "diablomedia/zendframework1-crypt": "^1.0.5",
-        "diablomedia/zendframework1-date": "^1.0.5"
+        "fragotesac/zf1-exception": "^1.1.1",
+        "fragotesac/zf1-config": "^2.0.5",
+        "fragotesac/zf1-crypt": "^1.0.5",
+        "fragotesac/zf1-date": "^1.0.5"
     },
     "autoload": {
         "psr-0": {
